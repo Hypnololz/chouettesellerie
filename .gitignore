@@ -18,3 +18,14 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+
+### exclusion perso
+.idea/
+/migrations/*.php
+/public/img/profils/*
+!/public/img/profils/.gitignore
+###
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###
