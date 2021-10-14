@@ -5,7 +5,7 @@
 ### cloner le projet
 
 ```
-https://github.com/Hypnololz/chouettesellerie.git
+git clone https://github.com/Hypnololz/chouettesellerie.git
 ```
 
 ### changer les connection base de données dans .env
