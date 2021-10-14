@@ -8,7 +8,6 @@
 git clone https://github.com/Hypnololz/chouettesellerie.git
 ```
 
-### changer les connection base de données dans .env
 
 ### deplacer le terminal dans le dossier cloné
 
