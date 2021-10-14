@@ -1,4 +1,4 @@
-# projet blog batman
+# projet chouette sellerie
 
 ## instalation
 
