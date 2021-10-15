@@ -3,16 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-use App\Entity\User;
+use App\Form\AddProductType;
 use App\Form\AddToCartType;
 use App\Form\CartReserveType;
 use App\Form\CartType;
 use App\Manager\CartManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Date;
 
 
 /**
@@ -32,6 +32,34 @@ class ShopController extends AbstractController
             'product' => $product,
         ]);
     }
+
+    /**
+     * @Route("/ajouter-produit", name="product.add")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function productadd(Request $request): Response
+    {
+
+        $product = new Product();
+        $form = $this->createForm(AddProductType::class,$product);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+
+            return $this->redirectToRoute('shop_product');
+
+        }
+
+
+        return $this->render('shop/addproduct.html.twig',[
+            'form' => $form->createView()
+
+        ]);
+    }
+
     /**
      * @Route("/produit/{slug}", name="product.detail")
      */

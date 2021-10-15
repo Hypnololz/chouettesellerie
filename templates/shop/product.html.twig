@@ -2,17 +2,23 @@
 {% block title %}produit{% endblock %}
 
 {% block body %}
-<h1>produit</h1>
-    {% for product in product%}
-    {{ product.name }}
-    {{ product.description }}
-    {{ product.price }}
-    {{ product.stock }}
-    {{ product.brand }}
-    {{ product.ranges }}
-    {{ product.reference }}
-        <a href="{{ path('shop_product.detail', {'slug': product.slug}) }}">click moi</a>
-    {% endfor %}
+    <div class="container">
+
+            <h1>produit</h1>
+        <div class="row">
+            {% for product in product %}
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ asset('img/1200x680_cheval.jpg') }}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }} de chez {{ product.brand }}</h5>
+                        <p class="card-text"> description {{ product.description }}</p>
+                        <p class="card-text"> prix {{ product.price }}</p>
+                        <a href="{{ path('shop_product.detail', {'slug': product.slug}) }}" class="btn btn-primary">détails</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
 
 
