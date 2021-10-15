@@ -15,9 +15,7 @@ class CreateNewsFormType extends AbstractType
         $builder
             ->add('title')
             ->add('content')
-            ->add('datePublication')
             ->add('photo')
-            ->add('author')
             ->add('save',SubmitType::class,[
                 'label'=>'créer article'
             ])
