@@ -1,17 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Créer un compte{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+    <div class="class container-fluid">
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+        <div class="row">
+            <h1 class="col-12 text-center my-5">Créer un compte</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-4 offset-md-4">
+                {{ form_start( registrationForm ) }}
+
+                    {{ form_errors( registrationForm )}}
+
+                    {{ form_row( registrationForm.name )}}
+
+                    {{ form_row( registrationForm.firstName )}}
+
+                    {{ form_row( registrationForm.phoneNumber )}}
+
+                    {{ form_row( registrationForm.email )}}
+
+                    {{ form_row( registrationForm.plainPassword ) }}
+
+                    {{ form_row( registrationForm.agreeTerms ) }}
+
+                    {# /TODO: Captcha à intégrer #}
+
+                    {{ form_row( registrationForm.save)  }}
+
+                {{ form_end(registrationForm) }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+{# /TODO: Intégrer le Fichier JS nécessaire pour faire fonctionner le recaptcha google dans un block css #}
+
+
 {% endblock %}

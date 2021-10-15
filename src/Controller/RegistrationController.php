@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class RegistrationController extends AbstractController
 {
     /**
-     * @Route("/register", name="app_register")
+     * @Route("/creer-un-compte/", name="app_register")
      */
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasherInterface): Response
     {
@@ -34,6 +34,10 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
+
+            // /TODO: Afficher le message dans la page d'accueil (base.html.twig)
+            // Message flash de succès
+            $this->addFlash('success', 'Votre compte a été créé avec succès !');
 
             return $this->redirectToRoute('main');
         }
