@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\NewsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=NewsRepository::class)
@@ -19,6 +20,7 @@ class News
 
     /**
      * @ORM\Column(type="string", length=150)
+     *
      */
     private $title;
 
@@ -42,6 +44,23 @@ class News
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Gedmo\Slug(fields={"title"})
+     */
+    private $slug;
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
 
     public function getId(): ?int
     {

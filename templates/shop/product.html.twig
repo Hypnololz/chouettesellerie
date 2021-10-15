@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block title %}produit{% endblock %}
+
+{% block body %}
+<h1>produit</h1>
+    {% for product in product%}
+    {{ product.name }}
+    {{ product.description }}
+    {{ product.price }}
+    {{ product.stock }}
+    {{ product.brand }}
+    {{ product.ranges }}
+    {{ product.reference }}
+        <a href="{{ path('shop_product.detail', {'slug': product.slug}) }}">click moi</a>
+    {% endfor %}
+{% endblock %}
+
+
