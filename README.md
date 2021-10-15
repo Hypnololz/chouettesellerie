@@ -5,7 +5,7 @@
 ### cloner le projet
 
 ```
-git clone https://github.com/Hypnololz/chouettesellerie.git
+git clone git clone https://github.com/Hypnololz/chouettesellerie.git
 ```
 
 
