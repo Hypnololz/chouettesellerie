@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\NewsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=NewsRepository::class)
@@ -23,6 +25,19 @@ class News
      *
      */
     private $title;
+    private $slug;
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
 
     /**
      * @ORM\Column(type="text")
@@ -42,25 +57,20 @@ class News
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="news")
      * @ORM\JoinColumn(nullable=false)
-     */
+     * @Assert\Image(
+     *     minWidth = 500,
+     *     maxWidth = 900,
+     *     minHeight = 500,
+     *     maxHeight = 900
+     * )
+     **/
     private $author;
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Gedmo\Slug(fields={"title"})
      */
-    private $slug;
 
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
 
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
 
     public function getId(): ?int
     {
