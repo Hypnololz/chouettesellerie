@@ -65,10 +65,6 @@ class CreateNewsFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => News::class,
-            'attr' =>[
-            'novalidate' => 'novalidate'
-
-            ]
         ]);
     }
 }
