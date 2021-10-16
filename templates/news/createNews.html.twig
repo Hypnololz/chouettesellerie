@@ -1,13 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% if is_granted('ROLE_ADMIN') %}
-    <p>Bienvenue dans la salle de rédaction de Chouette Sellerie</p>
-{% endif %}
 
 {% block title %}Création d'une news{% endblock %}
 
 {% block body %}
 
+    <p>Bienvenue dans la salle de rédaction de Chouette Sellerie</p>
     <h1>Formulaire de création</h1>
 
     {{ form(form) }}

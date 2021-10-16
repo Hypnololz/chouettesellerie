@@ -3,5 +3,4 @@
 twig:
     form_themes:
         - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
-        -
-  # TODO: changer la couleurs si besoin est en fonction de la charte
+  #TODO: changer la couleurs si besoin est en fonction de la charte

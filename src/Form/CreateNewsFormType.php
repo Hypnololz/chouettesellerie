@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\News;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,7 +27,7 @@ class CreateNewsFormType extends AbstractType
                     new Length([
                         'min' => 2,
                         'minMessage' =>'Le titre doit contenir au moins {{ limit }} caractères',
-                        'max' => 100,
+                        'max' => 50,
                         'maxMessage' =>'le titre doit contenir au moins {{ limit }} caractères',
                         ]),
                 ]
@@ -42,14 +43,14 @@ class CreateNewsFormType extends AbstractType
                         new Length([
                             'min' => 2,
                             'minMessage' =>'Le texte doit contenir au moins {{ limit }} caractères',
-                            'max' => 100,
+                            'max' => 5000,
                             'maxMessage' =>'le texte doit contenir au moins {{ limit }} caractères',
                         ]),
                     ]
             ])
 
 
-            ->add('photo',TextType::class,[
+            ->add('photo',FileType::class,[
                 'label' => 'photo'
                 ])
 
@@ -64,6 +65,10 @@ class CreateNewsFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => News::class,
+            'attr' =>[
+            'novalidate' => 'novalidate'
+
+            ]
         ]);
     }
 }

@@ -25,13 +25,13 @@ class NewsController extends AbstractController
 
         ]);
     }
+
     /**Création d'une interface de création de news avec formulaire**/
 
     /**
      * @Route("/newsroom", name="create_News")
      * @Security("is_granted('ROLE_ADMIN')")
      *
-
      */
     public function createNews(Request $request): Response
     {
@@ -39,7 +39,11 @@ class NewsController extends AbstractController
         $form = $this->createForm(CreateNewsFormType::class,$newNews);
         //appel de la bdd pour remplir les news
         $form->handleRequest($request);
+
         if($form->isSubmitted()&& $form->isValid()){
+            $newNews->setDatePublication(new \DateTime())
+                ->setAuthor($this->getUser());
+
             //sauvegarde en BDD
             $em = $this->getDoctrine()->getManager();
             $em->persist($newNews);
@@ -54,6 +58,7 @@ class NewsController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
     /**
      * @Route("/news/{slug}/",  name="view_article")
      */

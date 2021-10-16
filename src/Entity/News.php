@@ -25,6 +25,11 @@ class News
      *
      */
     private $title;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Gedmo\Slug(fields={"title"})
+     */
     private $slug;
 
     public function getSlug(): ?string
@@ -65,11 +70,6 @@ class News
      * )
      **/
     private $author;
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Gedmo\Slug(fields={"title"})
-     */
-
 
 
     public function getId(): ?int
