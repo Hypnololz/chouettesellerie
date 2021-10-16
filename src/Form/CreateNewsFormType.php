@@ -53,6 +53,7 @@ class CreateNewsFormType extends AbstractType
                 'label' => 'photo'
                 ])
 
+
             ->add('save',SubmitType::class,[
                 'label'=>'créer article'
             ])
