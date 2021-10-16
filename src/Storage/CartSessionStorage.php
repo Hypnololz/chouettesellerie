@@ -67,6 +67,12 @@ class CartSessionStorage
         $this->session->set(self::CART_KEY_NAME, $cart->getId());
     }
 
+
+    public function deleteCart(): void
+    {
+        $this->session->remove('cart_id');
+    }
+
     /**
      * Returns the cart id.
      *

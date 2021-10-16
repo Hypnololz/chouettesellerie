@@ -17,6 +17,9 @@ class CartReserveType extends AbstractType
     {
         $builder
             ->add('dateReservation',DateType::class,[
+                'widget' => 'single_text',
+                // this is actually the default format for single_text
+                'format' => 'yyyy-MM-dd',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'veuillez choisir une date'

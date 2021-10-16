@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
 use App\Entity\Product;
+use App\Entity\User;
 use App\Form\AddProductType;
 use App\Form\AddToCartType;
 use App\Form\CartReserveType;
@@ -13,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Storage\CartSessionStorage;
 
 
 /**
@@ -20,6 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ShopController extends AbstractController
 {
+
     /**
      * @Route("/produit", name="product")
      */
@@ -30,6 +34,19 @@ class ShopController extends AbstractController
         $product = $ProductRepo->findAll();
         return $this->render('shop/product.html.twig',[
             'product' => $product,
+        ]);
+    }
+    /**
+     * @Route("/mes-reservation/{id}", name="reservation_client")
+     * @Security ("is_granted('ROLE_ADMIN')")
+     */
+    public function reservation(): Response
+    {
+
+        $orderRepo = $this->getDoctrine()->getRepository(Order::class);
+         $order = $orderRepo->findByBuyer($this->getUser());
+        return $this->render('shop/reservation.html.twig',[
+           'order' => $order
         ]);
     }
 
@@ -92,7 +109,7 @@ class ShopController extends AbstractController
     /**
      * @Route("/cart", name="panier")
      */
-    public function panier(CartManager $cartManager, Request $request): Response
+    public function panier(CartManager $cartManager, Request $request, CartSessionStorage $cartSessionStorage): Response
     {
         $cart = $cartManager->getCurrentCart();
         $form = $this->createForm(CartType::class, $cart);
@@ -111,6 +128,8 @@ class ShopController extends AbstractController
             $date = new \DateTime();
             if($cart->getDateReservation() > $date && $cart->getDateReservation() < $date->add(new \DateInterval('P15D')))
             {
+                $cartSessionStorage->deleteCart();
+
                 $cart->setBuyer($this->getUser());
 
                 $em = $this->getDoctrine()->getManager();
