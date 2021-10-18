@@ -53,12 +53,6 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
 
-
-            // Champs numéro de téléphone
-            ->add('phoneNumber', IntegerType::class, [
-                'label' => 'Numéro de téléphone',
-            ])
-
             // Champ email
             ->add('email', EmailType::class, [
                 'label' => 'Adresse Email',

@@ -20,13 +20,16 @@
 
                     {{ form_row( registrationForm.firstName )}}
 
-                    {{ form_row( registrationForm.phoneNumber )}}
-
                     {{ form_row( registrationForm.email )}}
 
                     {{ form_row( registrationForm.plainPassword ) }}
 
-                    {# /TODO: Captcha à intégrer #}
+
+
+                    {# Affichage du captcha avec la clé publique récupérée directement grâce à la passerelle faite dans twig.yaml #}
+                    <div class="form-group">
+                        <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_site_key }}"></div>
+                    </div>
 
                     {{ form_row( registrationForm.save)  }}
 
@@ -39,7 +42,10 @@
     </div>
 
 
-{# /TODO: Intégrer le Fichier JS nécessaire pour faire fonctionner le recaptcha google dans un block css #}
+{% endblock %}
 
 
+{% block stylesheets %}
+    {# Insertion du fichier JS dans le block stylesheets, ce n'est pas une erreur, la documentation de Recaptcha préconise en effet d'intégrer ce fichier JS dans le head #}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 {% endblock %}
