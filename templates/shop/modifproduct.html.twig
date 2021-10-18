@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4 offset-4">
+                {{ form_start(form) }}
+                {{ form_row(form.name,{
+                    'label' : 'nom',
+                }) }}
+                {{ form_row(form.description) }}
+                {{ form_row(form.price,{
+                    'label' : 'prix',
+                }) }}
+                {{ form_row(form.stock) }}
+                {{ form_row(form.brand,{
+                    'label' : 'marque',
+                }) }}
+                {{ form_row(form.ranges,{
+                    'label' : 'gammes',
+                }) }}
+                {{ form_row(form.reference) }}
+                {{ form_row(form.save,{
+                    'label' : 'modifier !',
+                }) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block title %}
+    modification de {{ form.vars.value.name }}
+{% endblock %}
+

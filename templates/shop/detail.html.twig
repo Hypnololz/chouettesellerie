@@ -2,32 +2,42 @@
 {% block title %}produit{% endblock %}
 
 {% block body %}
-    <h1>produit</h1>
-        {{ product.name }}
-        {{ product.description }}
-        {{ product.price }}
-        {{ product.stock }}
-        {{ product.brand }}
-        {{ product.ranges }}
-        {{ product.reference }}
-    <div class="col-md-8">
-        <h1 class="mt-4 mt-md-0">{{ product.name }}</h1>
-        <h2>{{ product.price }} €</h2>
-        <hr>
-        <b>Description: </b>{{ product.description }}
-        {{ form_start(form, {'attr': {'class': 'mt-4 p-4 bg-light'}}) }}
-        <div class="form-group">
-            {{ form_label(form.quantity) }}
-            {{ form_widget(form.quantity, {
-                'attr': {
-                    'class': 'form-control ' ~ (form.quantity.vars.valid ? '' : 'is-invalid')
-                }
-            }) }}
-            <div class="invalid-feedback">
-                {{ form_errors(form.quantity) }}
+    <div class="container-fluid">
+        <h1>produit</h1>
+        <div class="row">
+            <div class="col-6 offset-3">
+                <div class="card" style="width: 40rem">
+                    <img src="{{ asset('img/produit/1200x680_cheval.jpg') }}" class="card-img-top" alt="image produit">
+                    <div class="card-body">
+                        <div>
+                            <h5 class="card-title">{{ product.name }} de chez {{ product.brand }}</h5>
+                            <p class="card-text"> prix {{ product.price }}</p>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <p class="card-text text-danger"> Stock {{ product.stock }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-6">
+                            {{ form_start(form) }}
+                            <div class="form-group">
+                                {{ form_widget(form.quantity, {
+                                    'attr': {
+                                        'value': '1',
+                                        'class': 'w-50 form-control ' ~ (form.quantity.vars.valid ? '' : 'is-invalid')
+                                    }
+                                }) }}
+                                <div class="invalid-feedback">
+                                    {{ form_errors(form.quantity) }}
+                                </div>
+                            </div>
+                            {{ form_widget(form.save, {'attr': {'class': 'btn btn-warning w-50'}}) }}
+                            {{ form_end(form) }}
+                        </div>
+                        <p>Description: {{ product.description }}</p>
+                    </div>
+                </div>
             </div>
         </div>
-        {{ form_widget(form.save, {'attr': {'class': 'btn btn-warning w-25'}}) }}
-        {{ form_end(form) }}
     </div>
 {% endblock %}

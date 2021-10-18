@@ -114,6 +114,7 @@ class ShopController extends AbstractController
         $cart = $cartManager->getCurrentCart();
         $form = $this->createForm(CartType::class, $cart);
         $formreserve = $this->createForm(CartReserveType::class,$cart);
+        dump($cart);
 
         $formreserve->handleRequest($request);
         $form->handleRequest($request);
@@ -148,5 +149,44 @@ class ShopController extends AbstractController
             'formreserve' => $formreserve->createView(),
         ]);
     }
+    /**
+     * @Route("/modif-produit/{slug}", name="product_modif")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function modifProduit(Request $request, Product $product): Response
+    {
+
+        $form = $this->createForm(AddProductType::class,$product);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('shop_product');
+
+        }
+
+
+        return $this->render('shop/modifproduct.html.twig',[
+            'form' => $form->createView()
+
+        ]);
+    }
+    /**
+     * @Route("/reservation", name="reservation")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function reservationclient(): Response
+    {
+
+        $orderRepo = $this->getDoctrine()->getRepository(Order::class);
+        $order = $orderRepo->findall();
+        return $this->render('shop/reservationall.html.twig',[
+            'order' => $order
+        ]);
+
+    }
+
 
 }

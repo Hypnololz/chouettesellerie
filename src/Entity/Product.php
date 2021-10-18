@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -20,40 +21,71 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message=" veuillez remplir tous les champ !")
+     * @Assert\Length(
+     *     min=2,
+     *     max=255,
+     *     minMessage="le nom doit faire au minimum {{ limit }} caractere",
+     *     maxMessage="le nom doit faire au maximum {{ limit }} caractere")
+     *
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message=" veuillez remplir tous les champ !")
+     * @Assert\Length(
+     *     min=2,
+     *     max=5000,
+     *     minMessage="la description doit faire au minimum {{ limit }} caractere",
+     *     maxMessage="la description doit faire au maximum {{ limit }} caractere")
      */
     private $description;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message=" veuillez remplir tous les champ !")
+     * @Assert\GreaterThanOrEqual(0)
      */
     private $price;
 
     /**
+     * @Assert\NotBlank(message=" veuillez remplir tous les champ !")
      * @ORM\Column(type="integer")
+     * @Assert\GreaterThanOrEqual(0)
      */
     private $stock;
 
     /**
+     * @Assert\NotBlank(message=" veuillez remplir tous les champ !")
      * @ORM\Column(type="string", length=50)
+     * @Assert\Length(
+     *     min=2,
+     *     max=50,
+     *     minMessage="le nom de la marque doit faire au minimum {{ limit }} caractere",
+     *     maxMessage="le nom de la marque doit faire au maximum {{ limit }} caractere")
      */
     private $brand;
 
     /**
+     * @Assert\NotBlank(message=" veuillez remplir tous les champ !")
      * @ORM\Column(type="string", length=50)
+     * @Assert\Length(
+     *     min=2,
+     *     max=50,
+     *     minMessage="le nom de la marque doit faire au minimum {{ limit }} caractere",
+     *     maxMessage="le nom de la marque doit faire au maximum {{ limit }} caractere")
      */
     private $ranges;
 
     /**
+     * @Assert\NotBlank(message=" veuillez remplir tous les champ !")
      * @ORM\Column(type="string", length=255)
      */
     private $reference;
 
     /**
+     *
      * @ORM\Column(type="string", length=255, unique=true)
      * @Gedmo\Slug(fields={"name"})
      */

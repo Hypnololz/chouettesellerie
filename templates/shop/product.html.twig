@@ -4,19 +4,24 @@
 {% block body %}
     <div class="container">
 
-            <h1>produit</h1>
+        <h1>produit</h1>
         <div class="row">
             {% for product in product %}
-                <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('img/1200x680_cheval.jpg') }}" class="card-img-top" alt="">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ product.name }} de chez {{ product.brand }}</h5>
-                        <p class="card-text"> description {{ product.description }}</p>
-                        <p class="card-text"> prix {{ product.price }}</p>
-                        <a href="{{ path('shop_product.detail', {'slug': product.slug}) }}" class="btn btn-primary">détails</a>
+                    <div class="card p-2 m-1" style="width: 20rem;">
+                        <img src="{{ asset('img/produit/1200x680_cheval.jpg') }}" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }} de chez {{ product.brand }}</h5>
+                            <p class="card-text"> description {{ product.description }}</p>
+                            <p class="card-text"> prix {{ product.price }}</p>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <p class="card-text text-danger"> Stock {{ product.stock }}</p>
+                                <a href="{{ path('shop_product_modif', {'slug': product.slug}) }}" class="btn btn-secondary">modifier le produit</a>
+                            {% endif %}
+                            <a href="{{ path('shop_product.detail', {'slug': product.slug}) }}"
+                               class="btn btn-primary">détails</a>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+        {% endfor %}
         </div>
     </div>
 {% endblock %}

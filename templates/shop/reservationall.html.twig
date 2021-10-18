@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for reservation in order %}
+    <ul>
+        <li> client : {{ reservation.buyer.name }} {{ reservation.buyer.firstName }}</li>
+        <li> date de retrait prévue: {{ reservation.dateReservation|date('d/m/Y') }}</li>
+        <li > prix total:  {{ reservation.total }}
+            {% for item in reservation.items %}
+        <li >{{ item.product.name }} quantité: {{ item.quantity }}
+
+            {% endfor %}
+            <hr>
+    </ul>
+    {% endfor %}
+{% endblock %}
+
+{% block title %}
+reservation
+{% endblock %}
+
