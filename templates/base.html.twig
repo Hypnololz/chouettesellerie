@@ -32,10 +32,10 @@
                 <li class="nav-item">
                     <a class="nav-link text-gold {{ route == 'shop_product' ? ' active' }}" href={{ path('shop_product') }}>boutique</a>
                 </li>
-                {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
                     <a class="nav-link text-gold {{ route == 'news' ? ' active' }}" href={{ path('news') }}>news</a>
                 </li>
+                {% if is_granted('ROLE_ADMIN') %}
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-gold" href="#" id="navbarDropdown" role="button"
@@ -78,9 +78,9 @@
                             <li class="nav-item"><a class="nav-link text-gold bg-bleumarine" href="{{ path('app_login') }}">connexion</a></li>
                         {% endif %}
             </ul>
-            <form class="d-flex" action="{{ path('shop_search') }}" method="get">
-                <input class="form-control me-2" type="search" name="searcharea" placeholder="Recherche" aria-label="Search">
-                <button class="btn bg-bleumarine text-gold"  type="submit">Recherche</button>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn bg-bleumarine text-gold" type="submit">Search</button>
             </form>
         </div>
     </div>

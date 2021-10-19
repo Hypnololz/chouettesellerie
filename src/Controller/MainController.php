@@ -21,5 +21,20 @@ class MainController extends AbstractController
             'news' => $news
         ]);
     }
+    /**
+     * @Route("/mentions-legales/", name="mentions_legales")
+     */
+    public function mentionsLegales(): Response
+    {
+        return $this->render('main/mentions_legales.html.twig');
+    }
+    /**
+     * @Route("/cgu/", name="cgu")
+     */
+    public function cgu(): Response
+    {
+        return $this->render('main/cgu.html.twig');
+    }
+
 
 }
