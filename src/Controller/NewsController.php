@@ -41,8 +41,7 @@ class NewsController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted()&& $form->isValid()){
-            $newNews->setDatePublication(new \DateTime())
-                ->setAuthor($this->getUser());
+                $newNews->setAuthor($this->getUser());
 
             //sauvegarde en BDD
             $em = $this->getDoctrine()->getManager();

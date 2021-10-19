@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=NewsRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class News
 {
@@ -51,6 +52,7 @@ class News
 
     /**
      * @ORM\Column(type="datetime")
+     *
      */
     private $datePublication;
 
@@ -70,6 +72,11 @@ class News
      * )
      **/
     private $author;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $updatedAt;
 
 
     public function getId(): ?int
@@ -106,11 +113,12 @@ class News
         return $this->datePublication;
     }
 
-    public function setDatePublication(\DateTimeInterface $datePublication): self
+    /**
+     * @ORM\PrePersist
+     */
+    public function setDatePublication(): void
     {
-        $this->datePublication = $datePublication;
-
-        return $this;
+        $this->datePublication = new \DateTime();
     }
 
     public function getPhoto(): ?string
@@ -135,5 +143,19 @@ class News
         $this->author = $author;
 
         return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAt(): void
+    {
+        $this->updatedAt = new \DateTimeImmutable();
+
     }
 }

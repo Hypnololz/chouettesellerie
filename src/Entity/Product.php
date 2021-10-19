@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Product
 {
@@ -67,16 +68,6 @@ class Product
      */
     private $brand;
 
-    /**
-     * @Assert\NotBlank(message=" veuillez remplir tous les champ !")
-     * @ORM\Column(type="string", length=50)
-     * @Assert\Length(
-     *     min=2,
-     *     max=50,
-     *     minMessage="le nom de la marque doit faire au minimum {{ limit }} caractere",
-     *     maxMessage="le nom de la marque doit faire au maximum {{ limit }} caractere")
-     */
-    private $ranges;
 
     /**
      * @Assert\NotBlank(message=" veuillez remplir tous les champ !")
@@ -90,6 +81,22 @@ class Product
      * @Gedmo\Slug(fields={"name"})
      */
     private $slug;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable="true")
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Gammes::class, inversedBy="product")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $gammes;
 
     public function getSlug(): ?string
     {
@@ -168,17 +175,6 @@ class Product
         return $this;
     }
 
-    public function getRanges(): ?string
-    {
-        return $this->ranges;
-    }
-
-    public function setRanges(string $ranges): self
-    {
-        $this->ranges = $ranges;
-
-        return $this;
-    }
 
     public function getReference(): ?string
     {
@@ -188,6 +184,45 @@ class Product
     public function setReference(string $reference): self
     {
         $this->reference = $reference;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     *
+     */
+    public function setCreatedAt(): void
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function setUpdatedAt(): void
+    {
+        $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function getGammes(): ?Gammes
+    {
+        return $this->gammes;
+    }
+
+    public function setGammes(?Gammes $gammes): self
+    {
+        $this->gammes = $gammes;
 
         return $this;
     }
