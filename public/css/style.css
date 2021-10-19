@@ -1,0 +1,38 @@
+/*importation de la police d'écriture*/
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&display=swap');
+
+/*définitions de sconstantes couleurs pour le site*/
+:root{
+    --main-blue-color: #140C61;
+    --main-gold-color: #F3D30F;
+}
+/*CSS de la page principale*/
+body{
+/*fonte principale*/
+    font-family: 'Cormorant Garamond', serif;
+}
+/*main*/
+section {
+    display: flex;
+}
+
+h2{
+    color: var(--main-blue-color);
+
+}
+i .fas {
+    color: var(--main-gold-color);
+}
+
+
+/*section 2 */
+.section2{
+
+}
+#teampic{
+    background-image: url("../img/produit/chouetteSellerieTeam.jpg");
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat
+
+}

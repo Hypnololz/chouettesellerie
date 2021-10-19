@@ -59,6 +59,7 @@ class NewsController extends AbstractController
         ]);
     }
 
+    //page de vue d'une news en détail.
     /**
      * @Route("/news/{slug}/",  name="view_article")
      */

@@ -3,5 +3,33 @@
 {% block title %}main page{% endblock %}
 
 {% block body %}
-    <h1>hello</h1>
+    <main class = "container-lg-fluid justify-content-center">
+        <section class ="section1 flex-lg-column" >
+
+                <h2 class = text-lg-center  >BOUTIQUE</h2>
+                <div class="d-grid gap-2 col-4 mx-auto">
+                      <button class="btn btn-primary" type="button"><i class="fas fa-hand-holding-medical"></i>  Gamme Soins</button>
+                      <button class="btn btn-primary" type="button"><i class="fas fa-hat-cowboy-side"></i>  Gamme Cavalier</button>
+                      <button class="btn btn-primary" type="button"><i class="fas fa-horse"></i>  Gamme Cheval</button>
+                      <button class="btn btn-primary" type="button"><i class="fas fa-paw"></i>  Gamme Chien</button>
+                </div>
+
+        </section>
+        <section class = "section2 section1 flex-lg-column">
+            <div class = "d-flex p-2 " >
+
+                <div id="teampic" class = "row-col-4 align-self-center" >
+                <h2>Bienvenue, on aime les chevaux !</h2>
+                <p>Chez Chouette sellerie,  nous montons tous les jours à cheval. C'est pourquoi nous sommes attentifs aux besoins des cavaliers et de leurs montures. N'hésitez pas à faire appel à notre expertise ! Une hésitation ? Un coup de fil ou un passage en boutique !</p>
+                </div>
+
+            </div>
+        </section>
+    <section class="section3 flex-lg-column">
+            <div class = "row-col-4">
+                <h2>A LA UNE</h2>
+            </div>
+    </section>
+    </main>
+
 {% endblock %}
