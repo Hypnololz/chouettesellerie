@@ -16,23 +16,44 @@ section {
     display: flex;
 }
 
-h2{
-    color: var(--main-blue-color);
+.bg-bleumarine{
+    background-color: var(--main-blue-color);
 
 }
+.text-gold{
+    color: var(--main-gold-color);
+}
+
 i .fas {
     color: var(--main-gold-color);
 }
 
 
-/*section 2 */
-.section2{
+
+.boutique{
+    font-size: 3rem;
 
 }
-#teampic{
-    background-image: url("../img/produit/chouetteSellerieTeam.jpg");
-    background-position: center center;
-    background-size: contain;
-    background-repeat: no-repeat
+
+
+@media (min-width: 1020px){
+    #teampic{
+        background-image: url("../img/produit/chouetteSellerieTeam.jpg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 600px;
+
+    }
+    #bois{
+        background-image: url("../img/photobois.jpg");
+        background-size: contain;
+        height: 900px;
+        box-shadow: 0 0 8px 8px white inset;
+
+    }
+    .overlay{
+        background-color: rgb(0,0,0,0.50);
+    }
 
 }

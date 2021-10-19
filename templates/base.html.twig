@@ -6,6 +6,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     {% block stylesheets %}
@@ -16,7 +17,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg text-success bg-light">
+<nav class="navbar navbar-expand-lg bg-bleumarine">
     <div class="container-fluid">
         <a class="navbar-brand  p-0" href="{{ path('main') }}"><img class="m-0 p-0" src="{{ asset('img/LOGO CS.png') }}" alt="" width="75px"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -26,60 +27,60 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link {{ route == 'main' ? ' active' }}" aria-current="page" href="{{ path('main') }}">Accueil</a>
+                    <a class="nav-link text-gold {{ route == 'main' ? ' active' }}" aria-current="page" href="{{ path('main') }}">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ route == 'shop_product' ? ' active' }}" href={{ path('shop_product') }}>boutique</a>
+                    <a class="nav-link text-gold {{ route == 'shop_product' ? ' active' }}" href={{ path('shop_product') }}>boutique</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ route == 'news' ? ' active' }}" href={{ path('news') }}>news</a>
+                    <a class="nav-link text-gold {{ route == 'news' ? ' active' }}" href={{ path('news') }}>news</a>
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    <a class="nav-link dropdown-toggle text-gold" href="#" id="navbarDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Administration
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ path('shop_product.add') }}">ajouter un produit</a></li>
+                    <ul class="dropdown-menu bg-bleumarine" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item text-gold bg-bleumarine" href="{{ path('shop_product.add') }}">ajouter un produit</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="{{ path('shop_reservation') }}">reservation</a></li>
+                        <li><a class="dropdown-item text-gold bg-bleumarine" href="{{ path('shop_reservation') }}">reservation</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="{{ path('create_News') }}">ajouter une news</a></li>
+                        <li><a class="dropdown-item text-gold bg-bleumarine" href="{{ path('create_News') }}">ajouter une news</a></li>
                     </ul>
                     {% endif %}
                 </li>
             </ul>
 
 
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
-                <li class="nav-item"><a class="nav-link" href="{{ path('shop_panier') }}">panier</a></li>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0  bg-bleumarine">
+                <li class="nav-item"><a class="nav-link text-gold bg-bleumarine" href="{{ path('shop_panier') }}">panier</a></li>
                 {% if is_granted('ROLE_USER') %}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    <a class="nav-link dropdown-toggle text-gold bg-bleumarine" href="#" id="navbarDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         {{ app.user.name }}
                     </a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-item"><a class="nav-link"
+                    <ul class="dropdown-menu bg-bleumarine" aria-labelledby="navbarDropdown">
+                        <li class="dropdown-item text-gold bg-bleumarine"><a class="nav-link text-gold bg-bleumarine"
                                                      href="{{ path('shop_reservation_client', {'id': app.user.id}) }}">mes
-                                reservation</a></li>
-                        <li class="dropdown-item"><a class="nav-link"
+                                reservations</a></li>
+                        <li class="dropdown-item"><a class="nav-link text-gold bg-bleumarine"
                                                      href="{{ path('app_logout') }}">deconnexion</a></li>
                     </ul>
                 </li>
                         {% else %}
-                            <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">connexion</a></li>
+                            <li class="nav-item"><a class="nav-link text-gold bg-bleumarine" href="{{ path('app_login') }}">connexion</a></li>
                         {% endif %}
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <button class="btn bg-bleumarine text-gold" type="submit">Search</button>
             </form>
         </div>
     </div>

@@ -3,33 +3,85 @@
 {% block title %}main page{% endblock %}
 
 {% block body %}
-    <main class = "container-lg-fluid justify-content-center">
-        <section class ="section1 flex-lg-column" >
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4 order-lg-2">
+                    <div class="container">
+                        <h2 class="text-center">Bienvenue, on aime les chevaux !</h2>
+                        <div class="row">
+                            <div class="col-12 col-lg-8 offset-lg-2">
+                                <p>Chez Chouette sellerie, nous montons tous les jours à cheval. C'est pourquoi nous
+                                    sommes
+                                    attentifs aux besoins des cavaliers et de leurs montures. N'hésitez pas à faire
+                                    appel à
+                                    notre
+                                    expertise ! Une hésitation ? Un coup de fil ou un passage en boutique !</p>
 
-                <h2 class = text-lg-center  >BOUTIQUE</h2>
-                <div class="d-grid gap-2 col-4 mx-auto">
-                      <button class="btn btn-primary" type="button"><i class="fas fa-hand-holding-medical"></i>  Gamme Soins</button>
-                      <button class="btn btn-primary" type="button"><i class="fas fa-hat-cowboy-side"></i>  Gamme Cavalier</button>
-                      <button class="btn btn-primary" type="button"><i class="fas fa-horse"></i>  Gamme Cheval</button>
-                      <button class="btn btn-primary" type="button"><i class="fas fa-paw"></i>  Gamme Chien</button>
+                            </div>
+                        </div>
+                        <div class="row" id="teampic"></div>
+                    </div>
                 </div>
+                <div class="col-lg-4 order-lg-1 p-lg-0">
+                    <div id="bois">
 
-        </section>
-        <section class = "section2 section1 flex-lg-column">
-            <div class = "d-flex p-2 " >
+                            <div class="container">
+                                <h2 class="text-center boutique">BOUTIQUE</h2>
+                                <div class="row">
+                                    <div class="col-12  pt-2 col-lg-6 offset-lg-3">
+                                        <button class="btn bg-bleumarine text-gold fw-bold w-100" type="button"><i
+                                                    class=" me-2 fas fa-hand-holding-medical"></i>
+                                            Gamme
+                                            Soins
+                                        </button>
+                                    </div>
+                                    <div class="col-12  pt-2 col-lg-6 offset-lg-3">
+                                        <button class="btn bg-bleumarine text-gold fw-bold w-100" type="button"><i
+                                                    class=" me-2 fas fa-hat-cowboy-side"></i> Gamme
+                                            Cavalier
+                                        </button>
+                                    </div>
+                                    <div class="col-12 pt-2 col-lg-6 offset-lg-3">
+                                        <button class="btn bg-bleumarine text-gold fw-bold w-100" type="button"><i
+                                                    class=" me-2 fas fa-horse"></i> Gamme Cheval
+                                        </button>
+                                    </div>
+                                    <div class="col-12 pt-2 col-lg-6 offset-lg-3">
+                                        <button class="btn bg-bleumarine text-gold fw-bold w-100" type="button"><i
+                                                    class=" me-2 fas fa-paw"></i> Gamme Chien
+                                        </button>
+                                    </div>
 
-                <div id="teampic" class = "row-col-4 align-self-center" >
-                <h2>Bienvenue, on aime les chevaux !</h2>
-                <p>Chez Chouette sellerie,  nous montons tous les jours à cheval. C'est pourquoi nous sommes attentifs aux besoins des cavaliers et de leurs montures. N'hésitez pas à faire appel à notre expertise ! Une hésitation ? Un coup de fil ou un passage en boutique !</p>
+                                </div>
+
+                            </div>
+                        </div>
                 </div>
+                <div class="col-lg-4 order-lg-3 m-lg-0 p-lg-0">
+                    <div id="bois">
+                        <div class="container">
+                            <h2>A LA UNE</h2>
+                            <div class="row">
 
+                                {% for new in news %}
+                                    <div class="card mx-auto bg-bleumarine" style="width: 18rem;">
+                                        <img src="{{ asset('img/LOGO CS.png') }}" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-gold">{{ new.title|raw|purify }}</h5>
+                                            <p class="card-text">
+                                            <p class="card-text text-gold">{{ new.content|raw|purify }}</p>
+                                            <a href="#" class="btn bg-bleumarine text-gold fw-bold">voir la news</a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
-    <section class="section3 flex-lg-column ">
-            <div class = "row-col-4">
-                <h2>A LA UNE</h2>
-            </div>
-    </section>
+        </div>
     </main>
+
 
 {% endblock %}
