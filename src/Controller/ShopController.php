@@ -60,6 +60,7 @@ class ShopController extends AbstractController
         $product = new Product();
         $form = $this->createForm(AddProductType::class,$product);
         $form->handleRequest($request);
+        dump($product);
         if ($form->isSubmitted() && $form->isValid()){
 
             $em = $this->getDoctrine()->getManager();
