@@ -122,4 +122,51 @@
 {# Bloc pour ajouter des fichiers JS additionnels #}
 {% block js %}{% endblock %}
 </body>
+
+    <footer class="text-center bg-bleumarine text-gold fs-6 fw-bold">
+
+        <div class="row">
+                <div class="col-12 col-lg-2 mt-2 offset-lg-3"><span ><i class="fas fa-home ms-3"></i> 37 rue de Mulhouse 21000 DIJON</span></div>
+            <div class="col-12 col-lg-2 mt-2 "><span><i class="fas fa-envelope ms-3"></i><a class="text-decoration-none text-gold" href="mailto:contact@lachouettesellerie.fr"> Contacter nous </a></span></div>
+                <div class="col-12 col-lg-2 mt-2"><span><i class="fas fa-phone ms-3"></i> 06 79 57 81 82</span></div>
+        </div>
+        <!-- Grid container -->
+        <div class="container pt-4">
+            <!-- Section: Social media -->
+            <div class="mb-4">
+
+                <!-- Facebook -->
+                <a class="btn btn-link btn-floating btn-lg text-gold "
+                   href="https://www.facebook.com/La-Chouette-Sellerie-116366336862331/"
+                   role="button"
+                   data-mdb-ripple-color="dark"><i class="fab fa-facebook-f"></i></a>
+
+                <!-- Instagram -->
+                <a class="btn btn-link btn-floating btn-lg text-gold"
+                        href="https://www.instagram.com/chouettesellerie/?hl=fr"
+                        role="button"
+                        data-mdb-ripple-color="dark"><i class="fab fa-instagram"></i></a>
+            </div>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+
+        <div class="text-center text-dark p-3">
+
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-12">
+                        <a class="text-gold text-decoration-none fw-bold me-5" href="{{ path('mentions_legales') }}">Mentions légales</a>
+                        <a class="text-gold text-decoration-none fw-bold" href="{{ path('cgu') }}">CGU</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+<!-- End of .container -->
 </html>
