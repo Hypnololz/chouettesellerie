@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Storage\CartSessionStorage;
 
@@ -187,6 +188,68 @@ class ShopController extends AbstractController
             'order' => $order
         ]);
 
+    }
+    /**
+     * @Route("/produit/delete/{id}", name="produit.delete")
+     * @Security ("is_granted('RROLE_ADMIN')")
+     */
+    public function produitDelete(Product $product, Request $request): Response
+    {
+        if (!$this->isCsrfTokenValid('product_delete_' . $product->getId(), $request->query->get('csrf_token'))) {
+            $this->addFlash('error', 'token secu invalide reessayer');
+        } else {
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->remove($product);
+
+            $em->flush();
+
+            $this->addFlash('success', 'le produit a bien etais surpprimé');
+
+        }
+        return $this->redirectToRoute('shop_product');
+
+
+    }
+    /**
+     * @Route("/produit-recherche", name="search")
+     */
+    public function shopsearch(Request $request): Response
+    {
+
+
+        $research = $request->query->get('searcharea');
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT a FROM App\Entity\Product a WHERE a.name LIKE :key OR a.description LIKE :key ")->setParameter('key', '%' . $research . '%');
+        $product = $query->getResult();
+
+        return $this->render('shop/search.html.twig', [
+            'product' => $product
+        ]);
+    }
+
+    /**
+     * @Route("/produit-gammes", name="gammes")
+     */
+    public function shopgammes(Request $request): Response
+    {
+
+
+        $research = $request->query->get('searcharea');
+        $em = $this->getDoctrine()->getManager();
+
+        $querybuild = $em->createQueryBuilder('a')
+            ->select('a')
+            ->from('App\Entity\Product','a')
+            ->innerJoin('a.gammes','b')
+            ->where('b.name = :name')
+            ->setParameter(':name',$research)
+            ->getQuery()
+            ->getResult();
+        return $this->render('shop/search.html.twig', [
+            'product' => $querybuild
+        ]);
     }
 
 

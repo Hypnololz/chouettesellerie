@@ -16,7 +16,7 @@ class MainController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $newrepo = $em->getRepository(News::class);
-        $news = $newrepo->findAll();
+        $news = $newrepo->findBy([],['datePublication'=>'DESC'],2);
         return $this->render('main/index.html.twig',[
             'news' => $news
         ]);

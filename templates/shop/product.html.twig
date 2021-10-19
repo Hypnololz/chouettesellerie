@@ -16,6 +16,9 @@
                             {% if is_granted('ROLE_ADMIN') %}
                                 <p class="card-text text-danger"> Stock {{ product.stock }}</p>
                                 <a href="{{ path('shop_product_modif', {'slug': product.slug}) }}" class="btn btn-secondary">modifier le produit</a>
+                                <a onclick="return confirm('Êtes vous sur de vouloir supprimer ce produit ?')"
+                                   class="text-decoration-none btn btn-danger"
+                                   href="{{ path('shop_produit.delete', {'id': product.id, 'csrf_token' : csrf_token('product_delete_'~product.id)}) }}">suprimer</a>
                             {% endif %}
                             <a href="{{ path('shop_product.detail', {'slug': product.slug}) }}"
                                class="btn btn-primary">détails</a>

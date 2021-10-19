@@ -1,10 +1,18 @@
 {% extends 'base.html.twig' %}
+{% block title %}
+    {{ news.title }}
+{% endblock %}
 
 {% block body %}
+    <div class="container">
+        <div class="row">
+            <h1 class="text-center">{{ news.title }}</h1>
+            <div class="col-12 text-center">
+                {{ news.content|raw|purify }}
 
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
-{% block title %}
-
-{% endblock %}
 

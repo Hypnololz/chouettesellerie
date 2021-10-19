@@ -16,6 +16,10 @@ section {
     display: flex;
 }
 
+body {
+    color: var(--main-blue-color);
+}
+
 .bg-bleumarine{
     background-color: var(--main-blue-color);
 
@@ -43,6 +47,8 @@ i .fas {
         background-repeat: no-repeat;
         background-position: center;
         height: 600px;
+        box-shadow: 0 0 8px 8px white inset;
+
 
     }
     #bois{
