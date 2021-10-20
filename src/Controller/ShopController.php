@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Order;
+use App\Entity\OrderItem;
 use App\Entity\Product;
 use App\Form\AddProductType;
 use App\Form\AddToCartType;
@@ -109,6 +110,7 @@ class ShopController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $item = $form->getData();
             $item->setProduct($product);
+            if ($product->getStock() >= $item->getQuantity()){
 
             $cart = $cartManager->getCurrentCart();
             $cart
@@ -120,6 +122,10 @@ class ShopController extends AbstractController
             $cartManager->save($cart);
 
             return $this->redirectToRoute('shop_product.detail', ['slug' => $product->getSlug()]);
+            }else{
+                $this->addFlash('error','Le produit n\'est plus en stock');
+            }
+
         }
 
         return $this->render('shop/detail.html.twig',[
@@ -157,6 +163,14 @@ class ShopController extends AbstractController
                 $cartSessionStorage->deleteCart();
 
                 $cart->setBuyer($this->getUser());
+                $id = $cart->getId();
+                $em = $this->getDoctrine()->getManager();
+                $orderitemrepo = $em->getRepository(OrderItem::class);
+                $orderitem =  $orderitemrepo->findByOrderRef($id);
+                foreach ( $orderitem as $item){
+                    $product = $item->getProduct();
+                    $product->setStock($product->getStock() - $item->getQuantity());
+                }
 
                 $em = $this->getDoctrine()->getManager();
                 $em->flush();
@@ -220,6 +234,22 @@ class ShopController extends AbstractController
         ]);
 
     }
+
+    /**
+     * @Route("/validation{id}", name="reservation.validation")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function validationreservationclient(Order $order): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($order);
+        $em->flush();
+
+
+        return $this->redirectToRoute('shop_reservation');
+
+    }
+
 
     //supression de produit via leur id + protection contre csrf
 

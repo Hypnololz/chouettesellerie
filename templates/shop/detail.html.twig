@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-6 offset-3">
                 <div class="card" style="width: 40rem">
-                    <img src="{{ asset('img/produit/1200x680_cheval.jpg') }}" class="card-img-top" alt="image produit">
+                    <img src="{{ asset('img/produit/'~product.photo) }}" class="card-img-top" alt="image produit">
                     <div class="card-body">
                         <div>
                             <h5 class="card-title">{{ product.name }} de chez {{ product.brand }}</h5>
