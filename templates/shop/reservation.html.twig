@@ -13,9 +13,10 @@
                 <li >{{ item.product.name }} au prix {{ item.product.price }} quantité:{{ item.quantity }}</li>
 
             {% endfor %}
+        <a href="{{ path('shop_reservation.validation', {'id': reservation.id}) }}">supprimer le panier</a>
             <hr>
     </ul>
-
+        
         {% endfor %}
 {% endblock %}
 
