@@ -21,12 +21,15 @@ class NewsController extends AbstractController
      */
     public function news(): Response
     {
+        $em = $this->getDoctrine()->getManager();
+        $newrepo = $em->getRepository(News::class);
+        $news = $newrepo->findAll();
         return $this->render('news/index.html.twig', [
-
+        'news'=>$news
         ]);
     }
 
-    /**Interface de création de news avec formulaire**/
+    /**Création d'une interface de création de news avec formulaire**/
 
     /**
      * @Route("/newsroom", name="create_News")
@@ -37,30 +40,16 @@ class NewsController extends AbstractController
     {
         $newNews = new News();
         $form = $this->createForm(CreateNewsFormType::class,$newNews);
-
         //appel de la bdd pour remplir les news
         $form->handleRequest($request);
 
         if($form->isSubmitted()&& $form->isValid()){
-            $newNews->setAuthor($this->getUser());
-            $photo = $form->get('photo')->getData();
-
-            //génération du nom de photo pour stockage
-            do{
-                $newPhotoName = md5(random_bytes(100)). '.' . $photo->guessExtension();
-            } while(file_exists('img/news' .$newPhotoName));
-            $newNews->setPhoto($newPhotoName);
+                $newNews->setAuthor($this->getUser());
 
             //sauvegarde en BDD
             $em = $this->getDoctrine()->getManager();
             $em->persist($newNews);
             $em->flush();
-
-            //Uploader la photo dans le dossier
-            $photo->move(
-                'img/news',
-                $newPhotoName
-            );
             //Message flash de succès
             $this->addFlash('success','Faites tourner les rotatives !');
             //redirection sur la page vue
@@ -74,12 +63,42 @@ class NewsController extends AbstractController
 
     //page de vue d'une news en détail.
     /**
-     * @Route("/news/{slug}/",  name="view_news")
+     * @Route("/news/{slug}/",  name="view_article")
      */
     public function viewNews(News $news): Response
     {
-        return $this-> render('news/viewNews.html.twig',[
-            "news"=>$news
+    return $this-> render('news/viewNews.html.twig',[
         ]);
     }
-}
+
+
+    //supression d'une news
+    /**
+     * Page admin servant à supprimer un article via son id passé dans l'URL
+     *
+     * @Route("/publication/suppression/{id}/", name="publication_delete")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function publicationDelete(News $news, Request $request): Response
+{
+
+    if(!$this->isCsrfTokenValid('publication_delete_' . $news->getId(), $request->query->get('csrf_token'))){
+
+        $this->addFlash('error', 'Token sécurité invalide, veuillez ré-essayer.');
+    } else {
+
+        // Manager général
+        $em = $this->getDoctrine()->getManager();
+
+        // Suppression de l'article
+        $em->remove($news);
+        $em->flush();
+
+        // Message flash de succès + redirection sur la liste des articles
+        $this->addFlash('success', 'La publication a été supprimée avec succès !');
+    }
+
+
+    return $this->redirectToRoute('news');
+
+} }
