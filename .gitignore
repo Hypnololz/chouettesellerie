@@ -24,7 +24,9 @@
 .idea/
 /migrations/*.php
 /public/img/produit/*
-!/public/img/profils/.gitignore
+/public/img/news/*
+!/public/img/produit/.gitignore
+!/public/img/news/.gitignore
 ###
 ###> liip/imagine-bundle ###
 /public/media/cache/
