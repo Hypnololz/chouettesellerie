@@ -100,7 +100,7 @@ class RegistrationFormType extends AbstractType
             ->add('save', SubmitType::class, [
                 'label' => 'Créer mon compte',
                 'attr' => [
-                    'class' => 'btn btn-outline-primary w-100',
+                    'class' => 'btn bg-bleumarine text-gold  w-100',
                 ],
             ])
         ;
