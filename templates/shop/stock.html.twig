@@ -26,10 +26,10 @@ Stock
                         <td>{{ product.name }}</td>
                         <td>{{ product.price }}</td>
                         <td>{{ product.stock }}</td>
-                        <td><a href="{{ path('shop_product_modif', {'slug': product.slug}) }}"><i class="fa fa-edit"></i> modifier</a>
+                        <td><a  class="text-decoration-none me-2 text-warning" href="{{ path('shop_product_modif', {'slug': product.slug}) }}"><i class="fa fa-edit me-2"></i>modifier</a>
                             <a onclick="return confirm('Êtes vous sur de vouloir supprimer ce produit ?')"
-                               class=""
-                               href="{{ path('shop_produit.delete', {'id': product.id, 'csrf_token' : csrf_token('product_delete_'~product.id)}) }}"><i class="fa fa-trash"></i></a> supprimer</td>
+                               class=" text-decoration-none text-danger"
+                               href="{{ path('shop_produit.delete', {'id': product.id, 'csrf_token' : csrf_token('product_delete_'~product.id)}) }}"><i class="fa fa-trash me-2"></i>supprimer</a></td>
                     </tr>
                 {% endfor %}
             </table>
