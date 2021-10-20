@@ -4,17 +4,17 @@
 {% block body %}
     <div class="container">
 
-        <h1>produit</h1>
+        <h1>Produits</h1>
         <div class="row">
             {% for product in product %}
                     <div class="card p-2 m-1" style="width: 20rem;">
                         <img src="{{ asset('img/produit/'~product.photo) }}" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">{{ product.name }} de chez {{ product.brand }}</h5>
-                            <p class="card-text"> description {{ product.description }}</p>
-                            <p class="card-text"> prix {{ product.price }}</p>
+                            <p class="card-text"> description : {{ product.description }}</p>
+                            <p class="card-text"> prix : {{ product.price }} €</p>
                             <a href="{{ path('shop_product.detail', {'slug': product.slug}) }}"
-                               class="btn btn-primary">détails</a>
+                               class="btn bg-bleumarine text-gold">détails</a>
                         </div>
                     </div>
         {% endfor %}

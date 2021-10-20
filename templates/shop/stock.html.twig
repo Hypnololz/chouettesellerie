@@ -4,31 +4,39 @@ Stock
 {% endblock %}
 
 {% block body %}
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">ref</th>
-        <th scope="col">nom</th>
-        <th scope="col">prix</th>
-        <th scope="col">stock</th>
-        <th scope="col">action</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for product in products %}
+    <div class="container-fluid">
+        <div class="row col-8 offset-2 mt-4 text-center">
 
-    <tr>
-        <td>{{ product.reference }}</td>
-        <td>{{ product.name }}</td>
-        <td>{{ product.price }}</td>
-        <td>{{ product.stock }}</td>
-        <td><a href="{{ path('shop_product_modif', {'slug': product.slug}) }}"><i class="fa fa-edit"></i></a>
-            <a onclick="return confirm('Êtes vous sur de vouloir supprimer ce produit ?')"
-               class=""
-               href="{{ path('shop_produit.delete', {'id': product.id, 'csrf_token' : csrf_token('product_delete_'~product.id)}) }}"><i class="fa fa-trash"></i></a></td>
-    </tr>
-    {% endfor %}
-</table>
+            <table class="table">
+                <thead>
+                <tr class="fw-bolder">
+                    <th scope="col">REF</th>
+                    <th scope="col">NOM</th>
+                    <th scope="col">PRIX</th>
+                    <th scope="col">STOCK</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for product in products %}
+
+                    <tr class="col-lg-2">
+                        <td>{{ product.reference }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.stock }}</td>
+                        <td><a href="{{ path('shop_product_modif', {'slug': product.slug}) }}"><i class="fa fa-edit"></i> modifier</a>
+                            <a onclick="return confirm('Êtes vous sur de vouloir supprimer ce produit ?')"
+                               class=""
+                               href="{{ path('shop_produit.delete', {'id': product.id, 'csrf_token' : csrf_token('product_delete_'~product.id)}) }}"><i class="fa fa-trash"></i></a> supprimer</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+
 {% endblock %}
 
 

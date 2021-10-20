@@ -1,18 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+    <h1 class="text-center py-4">- Réservations en cours -</h1>
     {% for reservation in order %}
 
-    <ul>
-        <li> client : {{ reservation.buyer.name }} {{ reservation.buyer.firstName }}</li>
-        <li> date de retrait prévue: {{ reservation.dateReservation|date('d/m/Y') }}</li>
-        <li > prix total:  {{ reservation.total }}
+    <ul class="list-unstyled offset-3">
+        <li class="my-2 fs-4"> client : {{ reservation.buyer.name }} {{ reservation.buyer.firstName }}</li>
+        <li class="my-2 fs-4"> date de retrait prévue: {{ reservation.dateReservation|date('d/m/Y') }}</li>
+        <li class="my-2 fs-4" > <span class="text-decoration-underline">prix total :</span>  <span class="fw-bold">{{ reservation.total }} €</span></li>
             {% for item in reservation.items %}
-        <li >{{ item.product.name }} quantité: {{ item.quantity }}
-            <a href="{{ path('shop_reservation.validation', {'id': reservation.id}) }}">supprimer le panier</a>
+        <li class="my-2 fs-4" >{{ item.product.name }} qté : {{ item.quantity }}</li>
+
 
             {% endfor %}
+
+            <a class="btn bg-bleumarine text-gold" href="{{ path('shop_reservation.validation', {'id': reservation.id}) }}">Valider le panier</a>
             <hr>
     </ul>
     {% endfor %}
