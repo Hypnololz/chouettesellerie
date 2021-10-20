@@ -343,6 +343,27 @@ class ShopController extends AbstractController
             'products' => $products
         ]);
     }
+    /**
+     * @Route("/produit-annulation{id}", name="cart.cancel")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function cartCancel(Order $order): Response
+    {
+
+
+        $id = $order->getId();
+        $em = $this->getDoctrine()->getManager();
+        $orderitemrepo = $em->getRepository(OrderItem::class);
+        $orderitem =  $orderitemrepo->findByOrderRef($id);
+        foreach ( $orderitem as $item){
+            $product = $item->getProduct();
+            $product->setStock($product->getStock() + $item->getQuantity());
+        }
+        $em->remove($order);
+        $em->flush();
+
+        return $this->redirectToRoute('shop_reservation');
+    }
 
 
 

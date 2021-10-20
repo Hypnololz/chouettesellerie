@@ -7,12 +7,13 @@
     <ul>
         <li> client : {{ reservation.buyer.name }} {{ reservation.buyer.firstName }}</li>
         <li> date de retrait prévue: {{ reservation.dateReservation|date('d/m/Y') }}</li>
-        <li > prix total:  {{ reservation.total }}
+        <li > prix total:  {{ reservation.total }}</li>
             {% for item in reservation.items %}
-        <li >{{ item.product.name }} quantité: {{ item.quantity }}
-            <a href="{{ path('shop_reservation.validation', {'id': reservation.id}) }}">supprimer le panier</a>
+        <li >{{ item.product.name }} quantité: {{ item.quantity }} </li>
 
             {% endfor %}
+            <a href="{{ path('shop_reservation.validation', {'id': reservation.id}) }}">supprimer le panier</a>
+            <a href="{{ path('shop_cart.cancel', {'id': reservation.id}) }}">annuler le panier</a>
             <hr>
     </ul>
     {% endfor %}
