@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=OrderRepository::class)
  * @ORM\Table(name="`order`")
- * @ORM\HasLifecycleCallbacks
  */
 class Order
 {
@@ -165,12 +164,12 @@ class Order
     }
 
 
-    /**
-     * @ORM\PreUpdate
-     */
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): void
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 
     public function getBuyer(): ?User

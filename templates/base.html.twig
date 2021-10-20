@@ -23,42 +23,42 @@
     <div class="container-fluid">
         <a class="navbar-brand  p-0" href="{{ path('main') }}"><img class="m-0 p-0" src="{{ asset('img/LOGO CS.png') }}"
                                                                     alt="" width="75px"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        <button class="navbar-toggler bg-black" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon bg-bleumarine"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link text-gold {{ route == 'main' ? ' active' }}" aria-current="page"
+                    <a class="nav-link text-gold fs-3 {{ route == 'main' ? ' active' }}" aria-current="page"
                        href="{{ path('main') }}">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-gold {{ route == 'shop_product' ? ' active' }}"
-                       href={{ path('shop_product') }}>boutique</a>
+                    <a class="nav-link text-gold fs-3  {{ route == 'shop_product' ? ' active' }}"
+                       href={{ path('shop_product') }}>Boutique</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-gold {{ route == 'news' ? ' active' }}" href={{ path('news') }}>news</a>
+                    <a class="nav-link text-gold fs-3  {{ route == 'news' ? ' active' }}" href={{ path('news') }}>news</a>
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-gold" href="#" id="navbarDropdown" role="button"
+                    <a class="nav-link dropdown-toggle text-gold fs-3 " href="#" id="navbarDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Administration
                     </a>
                     <ul class="dropdown-menu bg-bleumarine" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item text-gold bg-bleumarine" href="{{ path('shop_product.add') }}">ajouter
+                        <li><a class="dropdown-item text-gold bg-bleumarine fs-3 " href="{{ path('shop_product.add') }}">ajouter
                                 un produit</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item text-gold bg-bleumarine" href="{{ path('shop_reservation') }}">reservation</a>
+                        <li><a class="dropdown-item text-gold bg-bleumarine fs-3 " href="{{ path('shop_reservation') }}">reservation</a>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item text-gold bg-bleumarine" href="{{ path('create_News') }}">ajouter
+                        <li><a class="dropdown-item text-gold bg-bleumarine fs-3 " href="{{ path('create_News') }}">ajouter
                                 une news</a></li>
                     </ul>
                     {% endif %}
@@ -67,32 +67,32 @@
 
 
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0  bg-bleumarine">
-                <li class="nav-item"><a class="nav-link text-gold bg-bleumarine"
+                <li class="nav-item"><a class="nav-link text-gold bg-bleumarine fs-3 "
                                         href="{{ path('shop_panier') }}">panier</a></li>
                 {% if is_granted('ROLE_USER') %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-gold bg-bleumarine" href="#" id="navbarDropdown"
+                        <a class="nav-link dropdown-toggle text-gold bg-bleumarine fs-3 " href="#" id="navbarDropdown"
                            role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             {{ app.user.name }}
                         </a>
                         <ul class="dropdown-menu bg-bleumarine" aria-labelledby="navbarDropdown">
                             <li class="dropdown-item text-gold bg-bleumarine"><a
-                                        class="nav-link text-gold bg-bleumarine"
+                                        class="nav-link text-gold bg-bleumarine fs-3 "
                                         href="{{ path('shop_reservation_client', {'id': app.user.id}) }}">mes
                                     reservations</a></li>
-                            <li class="dropdown-item"><a class="nav-link text-gold bg-bleumarine"
+                            <li class="dropdown-item"><a class="nav-link text-gold bg-bleumarine fs-3 "
                                                          href="{{ path('app_logout') }}">deconnexion</a></li>
                         </ul>
                     </li>
                 {% else %}
-                    <li class="nav-item"><a class="nav-link text-gold bg-bleumarine" href="{{ path('app_login') }}">connexion</a>
+                    <li class="nav-item"><a class="nav-link text-gold bg-bleumarine fs-3 " href="{{ path('app_login') }}">connexion</a>
                     </li>
                 {% endif %}
             </ul>
             <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn bg-bleumarine text-gold" type="submit">Search</button>
+                <input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search">
+                <button class="btn bg-bleumarine text-gold fs-3 " type="submit">Recherche</button>
             </form>
         </div>
     </div>
@@ -123,6 +123,8 @@
         </div>
     </div>
 {% endif %}
+
+<div class="min-vh-100">
 {% block body %}
 
 
@@ -130,6 +132,7 @@
 
 
 {% endblock %}
+</div>
 
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 {# Bloc pour ajouter des fichiers JS additionnels #}

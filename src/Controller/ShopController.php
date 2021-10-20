@@ -23,6 +23,8 @@ use App\Storage\CartSessionStorage;
 class ShopController extends AbstractController
 {
 
+
+    //display produit
     /**
      * @Route("/produit", name="product")
      */
@@ -35,6 +37,9 @@ class ShopController extends AbstractController
             'product' => $product,
         ]);
     }
+
+    // envoie des reservation pour le client dans la vue
+
     /**
      * @Route("/mes-reservation/{id}", name="reservation_client")
      * @Security ("is_granted('ROLE_ADMIN')")
@@ -48,6 +53,9 @@ class ShopController extends AbstractController
            'order' => $order
         ]);
     }
+
+
+    //add product + photo rename
 
     /**
      * @Route("/ajouter-produit", name="product.add")
@@ -87,6 +95,9 @@ class ShopController extends AbstractController
         ]);
     }
 
+
+    //produit en détail avec ajout au panier
+
     /**
      * @Route("/produit/{slug}", name="product.detail")
      */
@@ -116,6 +127,8 @@ class ShopController extends AbstractController
         ]);
     }
 
+    // panier + form reservation
+
     /**
      * @Route("/cart", name="panier")
      */
@@ -137,6 +150,7 @@ class ShopController extends AbstractController
         }
         if ($formreserve->isSubmitted() && $formreserve->isValid()){
             $date = new \DateTime();
+            //verif pour etre dans une periode de 15 jours
             if($cart->getDateReservation() > $date && $cart->getDateReservation() < $date->add(new \DateInterval('P15D')))
             {
                 $cartSessionStorage->deleteCart();
@@ -159,6 +173,10 @@ class ShopController extends AbstractController
             'formreserve' => $formreserve->createView(),
         ]);
     }
+
+
+    //modification des produit administration
+
     /**
      * @Route("/modif-produit/{slug}", name="product_modif")
      * @Security("is_granted('ROLE_ADMIN')")
@@ -183,6 +201,9 @@ class ShopController extends AbstractController
 
         ]);
     }
+
+    //envoie des reservation de tout les clients dans la vue
+
     /**
      * @Route("/reservation", name="reservation")
      * @Security("is_granted('ROLE_ADMIN')")
@@ -190,13 +211,17 @@ class ShopController extends AbstractController
     public function reservationclient(): Response
     {
 
-        $orderRepo = $this->getDoctrine()->getRepository(Order::class);
-        $order = $orderRepo->findall();
-        return $this->render('shop/reservationall.html.twig',[
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT a FROM App\Entity\Order a WHERE a.buyer is not null ");
+        $order = $query->getResult();
+        return $this->render('shop/reservation.html.twig',[
             'order' => $order
         ]);
 
     }
+
+    //supression de produit via leur id + protection contre csrf
+
     /**
      * @Route("/produit/delete/{id}", name="produit.delete")
      * @Security ("is_granted('RROLE_ADMIN')")
@@ -220,6 +245,9 @@ class ShopController extends AbstractController
 
 
     }
+
+    //envoie des produit via la recherche de la navbar
+
     /**
      * @Route("/produit-recherche", name="search")
      */
@@ -236,6 +264,8 @@ class ShopController extends AbstractController
             'product' => $product
         ]);
     }
+
+    //envoie des produits par gammes via les boutons frontpage
 
     /**
      * @Route("/produit-gammes", name="gammes")

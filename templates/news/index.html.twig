@@ -11,7 +11,16 @@
 </div>
 
 
-
+    {% if is_granted('ROLE_ADMIN') %}
+        {% for new in news %}
+            <h1>{{ new.title }}</h1>
+            <p class="mb-0 mt-3">
+                <a class="text-decoration-none text-danger" href="{{ path('publication_delete', {'id': new.id, csrf_token: csrf_token('publication_delete_' ~ new.id ) }) }}"><i class="fas fa-trash-alt me-1"></i>Supprimer</a>
+            </p>
+        {% endfor %}
+    {% endif %}
 
 
 {% endblock %}
+
+
