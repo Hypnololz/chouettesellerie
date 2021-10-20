@@ -1,5 +1,6 @@
 /*importation de la police d'écriture*/
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 /*définitions de sconstantes couleurs pour le site*/
 :root{
@@ -9,7 +10,8 @@
 /*CSS de la page principale*/
 body{
 /*fonte principale*/
-    font-family: 'Cormorant Garamond', serif;
+/*    font-family: 'Cormorant Garamond', serif;*/
+    font-family: 'Roboto', sans-serif;
 }
 /*main*/
 section {
@@ -38,6 +40,7 @@ i .fas {
     font-size: 3rem;
 
 }
+
 
 
 @media (min-width: 1020px){
