@@ -37,10 +37,10 @@
                     <a class="nav-link text-gold fs-3  {{ route == 'shop_product' ? ' active' }}"
                        href={{ path('shop_product') }}>Boutique</a>
                 </li>
+                {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
                     <a class="nav-link text-gold fs-3  {{ route == 'news' ? ' active' }}" href={{ path('news') }}>news</a>
                 </li>
-                {% if is_granted('ROLE_ADMIN') %}
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-gold fs-3 " href="#" id="navbarDropdown" role="button"
@@ -77,11 +77,11 @@
                             {{ app.user.name }}
                         </a>
                         <ul class="dropdown-menu bg-bleumarine" aria-labelledby="navbarDropdown">
-                            <li class="dropdown-item text-gold bg-bleumarine"><a
-                                        class="nav-link text-gold bg-bleumarine fs-3 "
+                            <li class="dropdown-item bg-bleumarine"><a
+                                        class="nav-link text-gold fs-3 "
                                         href="{{ path('shop_reservation_client', {'id': app.user.id}) }}">mes
                                     reservations</a></li>
-                            <li class="dropdown-item"><a class="nav-link text-gold bg-bleumarine fs-3 "
+                            <li class="dropdown-item bg-bleumarin"><a class="nav-link text-gold  fs-3 "
                                                          href="{{ path('app_logout') }}">deconnexion</a></li>
                         </ul>
                     </li>
@@ -150,9 +150,9 @@
         <div class="col-12 col-lg-2 mt-2"><span><i class="fas fa-phone ms-3"></i> 06 79 57 81 82</span></div>
     </div>
     <!-- Grid container -->
-    <div class="container pt-4">
+    <div class="container">
         <!-- Section: Social media -->
-        <div class="mb-4">
+        <div class="mb-2">
 
             <!-- Facebook -->
             <a class="btn btn-link btn-floating btn-lg text-gold "
@@ -170,7 +170,7 @@
     </div>
     <!-- Grid container -->
 
-    <div class="text-center text-dark p-3">
+    <div class="text-center text-dark p-1">
 
         <div class="container-fluid">
 
