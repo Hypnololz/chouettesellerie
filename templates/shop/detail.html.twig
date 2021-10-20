@@ -3,7 +3,7 @@
 
 {% block body %}
     <div class="container-fluid">
-        <h1>produit</h1>
+        <h1 class="text-center my-4">Produit : {{ product.name }}</h1>
         <div class="row">
             <div class="col-6 offset-3">
                 <div class="card" style="width: 40rem">
@@ -11,9 +11,9 @@
                     <div class="card-body">
                         <div>
                             <h5 class="card-title">{{ product.name }} de chez {{ product.brand }}</h5>
-                            <p class="card-text"> prix {{ product.price }}</p>
+                            <p class="card-text"> prix : {{ product.price }} €</p>
                             {% if is_granted('ROLE_ADMIN') %}
-                                <p class="card-text text-danger"> Stock {{ product.stock }}</p>
+                                <p class="card-text text-danger"> Stock : {{ product.stock }}</p>
                             {% endif %}
                         </div>
                     </div>
@@ -31,10 +31,10 @@
                                     {{ form_errors(form.quantity) }}
                                 </div>
                             </div>
-                            {{ form_widget(form.save, {'attr': {'class': 'btn btn-warning w-50'}}) }}
+                            {{ form_widget(form.save, {'attr': {'class': 'btn bg-bleumarine text-gold my-2 w-50'}}) }}
                             {{ form_end(form) }}
                         </div>
-                        <p>Description: {{ product.description }}</p>
+                        <p>Description : {{ product.description }}</p>
                     </div>
                 </div>
             </div>

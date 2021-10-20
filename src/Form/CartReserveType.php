@@ -20,6 +20,7 @@ class CartReserveType extends AbstractType
                 'widget' => 'single_text',
                 // this is actually the default format for single_text
                 'format' => 'yyyy-MM-dd',
+                'label'=> 'Date de réservation',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'veuillez choisir une date'
@@ -27,7 +28,10 @@ class CartReserveType extends AbstractType
                 ]
             ])
             ->add('save',SubmitType::class,[
-                'label'=> 'reserver !'
+                'label'=> 'Réserver !',
+                'attr' => [
+                    'class' => 'btn bg-bleumarine text-gold',
+                ]
             ])
         ;
     }

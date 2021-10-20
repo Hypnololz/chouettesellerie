@@ -5,12 +5,13 @@
 {% endblock %}
 
 {% block body %}
+    <h1 class="text-center py-3">Ma réservation</h1>
         {% for reservation in order %}
-    <ul>
-            <li> date de retrait prévue: {{ reservation.dateReservation|date('d/m/Y') }}</li>
-            <li > prix total:  {{ reservation.total }}</li>
+    <ul class="list-unstyled">
+            <li> Date de retrait prévue: {{ reservation.dateReservation|date('d/m/Y') }}</li>
+            <li > Prix total :  {{ reservation.total }} €</li>
             {% for item in reservation.items %}
-                <li >{{ item.product.name }} au prix {{ item.product.price }} quantité:{{ item.quantity }}</li>
+                <li >{{ item.product.name }} au prix de : {{ item.product.price }} quantité : {{ item.quantity }}</li>
 
             {% endfor %}
             <hr>
