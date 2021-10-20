@@ -8,6 +8,7 @@ use App\Form\AddProductType;
 use App\Form\AddToCartType;
 use App\Form\CartReserveType;
 use App\Form\CartType;
+use App\Form\ProductModifType;
 use App\Manager\CartManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -184,7 +185,7 @@ class ShopController extends AbstractController
     public function modifProduit(Request $request, Product $product): Response
     {
 
-        $form = $this->createForm(AddProductType::class,$product);
+        $form = $this->createForm(ProductModifType::class,$product);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
 
@@ -289,6 +290,7 @@ class ShopController extends AbstractController
             'product' => $querybuild
         ]);
     }
+
 
 
 }
