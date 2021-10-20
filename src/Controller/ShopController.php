@@ -190,9 +190,10 @@ class ShopController extends AbstractController
     public function reservationclient(): Response
     {
 
-        $orderRepo = $this->getDoctrine()->getRepository(Order::class);
-        $order = $orderRepo->findall();
-        return $this->render('shop/reservationall.html.twig',[
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT a FROM App\Entity\Order a WHERE a.buyer is not null ");
+        $order = $query->getResult();
+        return $this->render('shop/reservation.html.twig',[
             'order' => $order
         ]);
 

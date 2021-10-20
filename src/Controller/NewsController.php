@@ -29,7 +29,7 @@ class NewsController extends AbstractController
         ]);
     }
 
-    /**Création d'une interface de création de news avec formulaire**/
+    /**Interface de création de news avec formulaire**/
 
     /**
      * @Route("/newsroom", name="create_News")
@@ -40,16 +40,30 @@ class NewsController extends AbstractController
     {
         $newNews = new News();
         $form = $this->createForm(CreateNewsFormType::class,$newNews);
+
         //appel de la bdd pour remplir les news
         $form->handleRequest($request);
 
         if($form->isSubmitted()&& $form->isValid()){
-                $newNews->setAuthor($this->getUser());
+            $newNews->setAuthor($this->getUser());
+            $photo = $form->get('photo')->getData();
+
+            //génération du nom de photo pour stockage
+            do{
+                $newPhotoName = md5(random_bytes(100)). '.' . $photo->guessExtension();
+            } while(file_exists('img/news' .$newPhotoName));
+            $newNews->setPhoto($newPhotoName);
 
             //sauvegarde en BDD
             $em = $this->getDoctrine()->getManager();
             $em->persist($newNews);
             $em->flush();
+
+            //Uploader la photo dans le dossier
+            $photo->move(
+                'img/news',
+                $newPhotoName
+            );
             //Message flash de succès
             $this->addFlash('success','Faites tourner les rotatives !');
             //redirection sur la page vue
@@ -63,18 +77,19 @@ class NewsController extends AbstractController
 
     //page de vue d'une news en détail.
     /**
-     * @Route("/news/{slug}/",  name="view_article")
+     * @Route("/news/{slug}/",  name="view_news")
      */
     public function viewNews(News $news): Response
     {
-    return $this-> render('news/viewNews.html.twig',[
+        return $this-> render('news/viewNews.html.twig',[
+            "news"=>$news
         ]);
     }
 
 
     //supression d'une news
+     //Page admin servant à supprimer un article via son id passé dans l'URL
     /**
-     * Page admin servant à supprimer un article via son id passé dans l'URL
      *
      * @Route("/publication/suppression/{id}/", name="publication_delete")
      * @Security("is_granted('ROLE_ADMIN')")

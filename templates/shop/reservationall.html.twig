@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
     {% for reservation in order %}
+
     <ul>
         <li> client : {{ reservation.buyer.name }} {{ reservation.buyer.firstName }}</li>
         <li> date de retrait prévue: {{ reservation.dateReservation|date('d/m/Y') }}</li>
