@@ -54,7 +54,10 @@ class AddProductType extends AbstractType
                 ],
             ])
             ->add('save',SubmitType::class,[
-                'label' => 'ajouter !'
+                'label' => 'Ajouter !',
+                'attr' => [
+                    'class' => 'btn bg-bleumarine text-gold  w-100',
+                ],
             ])
         ;
     }

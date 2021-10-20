@@ -5,7 +5,7 @@ panier
 
 {% block body %}
         <div class="container mt-4">
-            <h1>Your Cart</h1>
+            <h1>Votre panier</h1>
             {% if cart.items.count > 0 %}
                 <div class="row mt-4">
                     <div class="col-md-8">
@@ -75,7 +75,7 @@ panier
                 </div>
             {% else %}
                 <div class="alert alert-info">
-                    Your cart is empty. Go to the <a href="{{ path('shop_product') }}">product list</a>.
+                    Votre panier est vide. Allez sur <a href="{{ path('shop_product') }}">Liste Produits</a>.
                 </div>
             {% endif %}
         </div>
