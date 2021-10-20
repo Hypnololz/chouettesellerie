@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Order;
 use App\Entity\Product;
-use App\Entity\User;
 use App\Form\AddProductType;
 use App\Form\AddToCartType;
 use App\Form\CartReserveType;
@@ -14,7 +13,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Storage\CartSessionStorage;
 
@@ -63,10 +61,20 @@ class ShopController extends AbstractController
         $form->handleRequest($request);
         dump($product);
         if ($form->isSubmitted() && $form->isValid()){
+            $photo = $form->get('photo')->getData();
+            do{
+                $newFileName = md5(random_bytes(100)).'.'. $photo->guessExtension();
 
+            }while(file_exists('public/img/produit/'. $newFileName));
+            $product->setPhoto($newFileName);
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
+
+            $photo->move(
+                'img/produit/',
+                $newFileName
+            );
 
             return $this->redirectToRoute('shop_product');
 

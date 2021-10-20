@@ -23,7 +23,7 @@
 ### exclusion perso
 .idea/
 /migrations/*.php
-/public/img/profils/*
+/public/img/produit/*
 !/public/img/profils/.gitignore
 ###
 ###> liip/imagine-bundle ###

@@ -22,7 +22,7 @@ panier
                                 {% for item in form.items %}
                                     <li class="list-group-item d-flex">
                                         <div class="flex-fill mr-2">
-                                            <img src="https://via.placeholder.com/200x150" width="64" alt="Product image">
+                                            <img src="{{ asset('img/produit/'~item.vars.data.product.photo) }}" width="64" alt="Product image">
                                         </div>
                                         <div class="flex-fill mr-2">
                                             <h5 class="mt-0 mb-0">{{ item.vars.data.product.name }}</h5>

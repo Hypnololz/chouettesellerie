@@ -6,11 +6,13 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+          integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     {% block stylesheets %}
-        
+
     {% endblock %}
 
     <title>{% block title %}{% endblock %}</title>
@@ -19,7 +21,8 @@
 
 <nav class="navbar navbar-expand-lg bg-bleumarine">
     <div class="container-fluid">
-        <a class="navbar-brand  p-0" href="{{ path('main') }}"><img class="m-0 p-0" src="{{ asset('img/LOGO CS.png') }}" alt="" width="75px"></a>
+        <a class="navbar-brand  p-0" href="{{ path('main') }}"><img class="m-0 p-0" src="{{ asset('img/LOGO CS.png') }}"
+                                                                    alt="" width="75px"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -27,10 +30,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link text-gold {{ route == 'main' ? ' active' }}" aria-current="page" href="{{ path('main') }}">Accueil</a>
+                    <a class="nav-link text-gold {{ route == 'main' ? ' active' }}" aria-current="page"
+                       href="{{ path('main') }}">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-gold {{ route == 'shop_product' ? ' active' }}" href={{ path('shop_product') }}>boutique</a>
+                    <a class="nav-link text-gold {{ route == 'shop_product' ? ' active' }}"
+                       href={{ path('shop_product') }}>boutique</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-gold {{ route == 'news' ? ' active' }}" href={{ path('news') }}>news</a>
@@ -43,15 +48,18 @@
                         Administration
                     </a>
                     <ul class="dropdown-menu bg-bleumarine" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item text-gold bg-bleumarine" href="{{ path('shop_product.add') }}">ajouter un produit</a></li>
+                        <li><a class="dropdown-item text-gold bg-bleumarine" href="{{ path('shop_product.add') }}">ajouter
+                                un produit</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item text-gold bg-bleumarine" href="{{ path('shop_reservation') }}">reservation</a></li>
+                        <li><a class="dropdown-item text-gold bg-bleumarine" href="{{ path('shop_reservation') }}">reservation</a>
+                        </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item text-gold bg-bleumarine" href="{{ path('create_News') }}">ajouter une news</a></li>
+                        <li><a class="dropdown-item text-gold bg-bleumarine" href="{{ path('create_News') }}">ajouter
+                                une news</a></li>
                     </ul>
                     {% endif %}
                 </li>
@@ -59,24 +67,28 @@
 
 
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0  bg-bleumarine">
-                <li class="nav-item"><a class="nav-link text-gold bg-bleumarine" href="{{ path('shop_panier') }}">panier</a></li>
+                <li class="nav-item"><a class="nav-link text-gold bg-bleumarine"
+                                        href="{{ path('shop_panier') }}">panier</a></li>
                 {% if is_granted('ROLE_USER') %}
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-gold bg-bleumarine" href="#" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ app.user.name }}
-                    </a>
-                    <ul class="dropdown-menu bg-bleumarine" aria-labelledby="navbarDropdown">
-                        <li class="dropdown-item text-gold bg-bleumarine"><a class="nav-link text-gold bg-bleumarine"
-                                                     href="{{ path('shop_reservation_client', {'id': app.user.id}) }}">mes
-                                reservations</a></li>
-                        <li class="dropdown-item"><a class="nav-link text-gold bg-bleumarine"
-                                                     href="{{ path('app_logout') }}">deconnexion</a></li>
-                    </ul>
-                </li>
-                        {% else %}
-                            <li class="nav-item"><a class="nav-link text-gold bg-bleumarine" href="{{ path('app_login') }}">connexion</a></li>
-                        {% endif %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-gold bg-bleumarine" href="#" id="navbarDropdown"
+                           role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ app.user.name }}
+                        </a>
+                        <ul class="dropdown-menu bg-bleumarine" aria-labelledby="navbarDropdown">
+                            <li class="dropdown-item text-gold bg-bleumarine"><a
+                                        class="nav-link text-gold bg-bleumarine"
+                                        href="{{ path('shop_reservation_client', {'id': app.user.id}) }}">mes
+                                    reservations</a></li>
+                            <li class="dropdown-item"><a class="nav-link text-gold bg-bleumarine"
+                                                         href="{{ path('app_logout') }}">deconnexion</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link text-gold bg-bleumarine" href="{{ path('app_login') }}">connexion</a>
+                    </li>
+                {% endif %}
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -118,55 +130,60 @@
 
 
 {% endblock %}
+
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 {# Bloc pour ajouter des fichiers JS additionnels #}
 {% block js %}{% endblock %}
 </body>
 
-    <footer class="text-center bg-bleumarine text-gold fs-6 fw-bold">
+<footer class="text-center bg-bleumarine text-gold fs-6 fw-bold">
 
-        <div class="row">
-                <div class="col-12 col-lg-2 mt-2 offset-lg-3"><span ><i class="fas fa-home ms-3"></i> 37 rue de Mulhouse 21000 DIJON</span></div>
-            <div class="col-12 col-lg-2 mt-2 "><span><i class="fas fa-envelope ms-3"></i><a class="text-decoration-none text-gold" href="mailto:contact@lachouettesellerie.fr"> Contacter nous </a></span></div>
-                <div class="col-12 col-lg-2 mt-2"><span><i class="fas fa-phone ms-3"></i> 06 79 57 81 82</span></div>
+    <div class="row m-0">
+        <div class="col-12 col-lg-2 mt-2 offset-lg-3"><span><i class="fas fa-home ms-3"></i> 37 rue de Mulhouse 21000 DIJON</span>
         </div>
-        <!-- Grid container -->
-        <div class="container pt-4">
-            <!-- Section: Social media -->
-            <div class="mb-4">
-
-                <!-- Facebook -->
-                <a class="btn btn-link btn-floating btn-lg text-gold "
-                   href="https://www.facebook.com/La-Chouette-Sellerie-116366336862331/"
-                   role="button"
-                   data-mdb-ripple-color="dark"><i class="fab fa-facebook-f"></i></a>
-
-                <!-- Instagram -->
-                <a class="btn btn-link btn-floating btn-lg text-gold"
-                        href="https://www.instagram.com/chouettesellerie/?hl=fr"
-                        role="button"
-                        data-mdb-ripple-color="dark"><i class="fab fa-instagram"></i></a>
-            </div>
-            <!-- Section: Social media -->
+        <div class="col-12 col-lg-2 mt-2 "><span><i class="fas fa-envelope ms-3"></i><a
+                        class="text-decoration-none text-gold" href="mailto:contact@lachouettesellerie.fr"> Contacter nous </a></span>
         </div>
-        <!-- Grid container -->
+        <div class="col-12 col-lg-2 mt-2"><span><i class="fas fa-phone ms-3"></i> 06 79 57 81 82</span></div>
+    </div>
+    <!-- Grid container -->
+    <div class="container pt-4">
+        <!-- Section: Social media -->
+        <div class="mb-4">
 
-        <div class="text-center text-dark p-3">
+            <!-- Facebook -->
+            <a class="btn btn-link btn-floating btn-lg text-gold "
+               href="https://www.facebook.com/La-Chouette-Sellerie-116366336862331/"
+               role="button"
+               data-mdb-ripple-color="dark"><i class="fab fa-facebook-f"></i></a>
 
-            <div class="container-fluid">
+            <!-- Instagram -->
+            <a class="btn btn-link btn-floating btn-lg text-gold"
+               href="https://www.instagram.com/chouettesellerie/?hl=fr"
+               role="button"
+               data-mdb-ripple-color="dark"><i class="fab fa-instagram"></i></a>
+        </div>
+        <!-- Section: Social media -->
+    </div>
+    <!-- Grid container -->
 
-                <div class="row">
-                    <div class="col-12">
-                        <a class="text-gold text-decoration-none fw-bold me-5" href="{{ path('mentions_legales') }}">Mentions légales</a>
-                        <a class="text-gold text-decoration-none fw-bold" href="{{ path('cgu') }}">CGU</a>
-                    </div>
+    <div class="text-center text-dark p-3">
+
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-12">
+                    <a class="text-gold text-decoration-none fw-bold me-5" href="{{ path('mentions_legales') }}">Mentions
+                        légales</a>
+                    <a class="text-gold text-decoration-none fw-bold" href="{{ path('cgu') }}">CGU</a>
                 </div>
-
             </div>
 
         </div>
 
-    </footer>
+    </div>
+
+</footer>
 
 <!-- End of .container -->
 </html>

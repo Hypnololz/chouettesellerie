@@ -98,6 +98,11 @@ class Product
      */
     private $gammes;
 
+    /**
+     * @ORM\Column(type="string", length=60)
+     */
+    private $Photo;
+
     public function getSlug(): ?string
     {
         return $this->slug;
@@ -223,6 +228,18 @@ class Product
     public function setGammes(?Gammes $gammes): self
     {
         $this->gammes = $gammes;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->Photo;
+    }
+
+    public function setPhoto(string $Photo): self
+    {
+        $this->Photo = $Photo;
 
         return $this;
     }

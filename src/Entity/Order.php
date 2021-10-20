@@ -190,12 +190,12 @@ class Order
         return $this->dateReservation;
     }
 
-    /**
-     * @ORM\PrePersist
-     */
-    public function setDateReservation(\DateTimeInterface $dateReservation): void
+
+    public function setDateReservation(\DateTimeInterface $dateReservation): self
     {
-        $this->dateReservation = new \DateTimeImmutable();
+        $this->dateReservation = $dateReservation;
+
+        return $this;
 
     }
 }

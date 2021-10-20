@@ -32,6 +32,27 @@ class AddProductType extends AbstractType
                 'choice_label' => 'name'
                 ])
             ->add('reference',TextType::class)
+            ->add('photo',FileType::class,[
+                'label' => 'sélectionnez une photo',
+                'attr' => [
+                    'accept' => 'image/jpeg, image/png'
+                ],
+                'constraints' =>[
+                    new NotBlank([
+                        'message' => 'selectionnez une photo',
+                    ]),
+                    new File([
+                        'maxSize' => '2M',
+                        'maxSizeMessage' => 'fichier trop volumineux({{ size }}{{ suffix }}). la taille maximum autorisée est de {{ limit }} {{ suffix }}',
+                        'mimeTypes' =>[
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'la photo n\'a pas le bon type, jpg ou png!'
+
+                    ]),
+                ],
+            ])
             ->add('save',SubmitType::class,[
                 'label' => 'ajouter !'
             ])
