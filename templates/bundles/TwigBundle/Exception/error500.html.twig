@@ -1,0 +1,26 @@
+{# Utilisation du squelette de page base.html.twig #}
+{% extends 'base.html.twig' %}
+
+{# Titre de la page #}
+{% block title %}Erreur 404 : Page Introuvable{% endblock %}
+
+{# Contenu de la page #}
+{% block body %}
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <h1 class="text-center fs-1 fw-bold pt-5">ERREUR 500 : Internal Server Error</h1>
+
+            <div class="col-12 text-center">
+
+                <img src="{{ asset('img/erreurs.jpg') }}" alt="Erreur 500" class="img-fluid my-3">
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
