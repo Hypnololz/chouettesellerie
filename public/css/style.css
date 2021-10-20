@@ -55,3 +55,8 @@ i .fas {
 
     }
 }
+iframe{
+    border: none;
+    width: 85%;
+    height: 90%;
+}
