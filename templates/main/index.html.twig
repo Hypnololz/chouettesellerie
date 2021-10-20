@@ -69,12 +69,11 @@
                         <div class="row">
 
                             {% for new in news %}
-                                <div class="card mx-auto bg-bleumarine" style="width: 18rem;">
+                                <div class="card mx-auto bg-bleumarine text-gold" style="width: 18rem;">
                                     <img src="{{ asset('img/news/'~new.photo) }}" class="card-img-top" alt="...">
                                     <div class="card-body">
-                                        <h5 class="card-title text-gold">{{ new.title|raw|purify }}</h5>
-                                        <p class="card-text">
-                                        <p class="card-text text-gold">{{ new.content|raw|purify }}</p>
+                                        <h5 class="card-title text-gold">{{ new.title }}</h5>
+                                        <div class="card-text">{{ new.content|raw|purify }}</div>
                                         <a href="{{ path('view_news', {'slug': new.slug}) }}"
                                            class="btn bg-bleumarine text-gold fw-bold">voir la news</a>
                                     </div>

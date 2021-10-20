@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+Stock
+{% endblock %}
+
+{% block body %}
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ref</th>
+        <th scope="col">nom</th>
+        <th scope="col">prix</th>
+        <th scope="col">stock</th>
+        <th scope="col">action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for product in products %}
+
+    <tr>
+        <td>{{ product.reference }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.stock }}</td>
+        <td><a href="{{ path('shop_product_modif', {'slug': product.slug}) }}"><i class="fa fa-edit"></i></a>
+            <a onclick="return confirm('Êtes vous sur de vouloir supprimer ce produit ?')"
+               class=""
+               href="{{ path('shop_produit.delete', {'id': product.id, 'csrf_token' : csrf_token('product_delete_'~product.id)}) }}"><i class="fa fa-trash"></i></a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+
+

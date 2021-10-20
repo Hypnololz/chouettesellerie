@@ -23,7 +23,8 @@
     <div class="container-fluid">
         <a class="navbar-brand  p-0" href="{{ path('main') }}"><img class="m-0 p-0" src="{{ asset('img/LOGO CS.png') }}"
                                                                     alt="" width="75px"></a>
-        <button class="navbar-toggler bg-black" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        <button class="navbar-toggler bg-black" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon bg-bleumarine"></span>
         </button>
@@ -39,7 +40,8 @@
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
-                    <a class="nav-link text-gold fs-3  {{ route == 'news' ? ' active' }}" href={{ path('news') }}>news</a>
+                    <a class="nav-link text-gold fs-3  {{ route == 'news' ? ' active' }}"
+                       href={{ path('news') }}>news</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -48,12 +50,21 @@
                         Administration
                     </a>
                     <ul class="dropdown-menu bg-bleumarine" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item text-gold bg-bleumarine fs-3 " href="{{ path('shop_product.add') }}">ajouter
+                        <li><a class="dropdown-item text-gold bg-bleumarine fs-3 "
+                               href="{{ path('shop_product.add') }}">ajouter
                                 un produit</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item text-gold bg-bleumarine fs-3 " href="{{ path('shop_reservation') }}">reservation</a>
+                        <li><a class="dropdown-item text-gold bg-bleumarine fs-3 "
+                               href="{{ path('shop_reservation') }}">reservation</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item text-gold bg-bleumarine fs-3 "
+                               href="{{ path('shop_stock') }}">stock</a>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -82,11 +93,13 @@
                                         href="{{ path('shop_reservation_client', {'id': app.user.id}) }}">mes
                                     reservations</a></li>
                             <li class="dropdown-item bg-bleumarin"><a class="nav-link text-gold  fs-3 "
-                                                         href="{{ path('app_logout') }}">deconnexion</a></li>
+                                                                      href="{{ path('app_logout') }}">deconnexion</a>
+                            </li>
                         </ul>
                     </li>
                 {% else %}
-                    <li class="nav-item"><a class="nav-link text-gold bg-bleumarine fs-3 " href="{{ path('app_login') }}">connexion</a>
+                    <li class="nav-item"><a class="nav-link text-gold bg-bleumarine fs-3 "
+                                            href="{{ path('app_login') }}">connexion</a>
                     </li>
                 {% endif %}
             </ul>
@@ -125,13 +138,13 @@
 {% endif %}
 
 <div class="min-vh-100">
-{% block body %}
+    {% block body %}
 
 
 
 
 
-{% endblock %}
+    {% endblock %}
 </div>
 
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>

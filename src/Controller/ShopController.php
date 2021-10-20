@@ -44,7 +44,7 @@ class ShopController extends AbstractController
 
     /**
      * @Route("/mes-reservation/{id}", name="reservation_client")
-     * @Security ("is_granted('ROLE_ADMIN')")
+     *
      */
     public function reservation(): Response
     {
@@ -174,7 +174,11 @@ class ShopController extends AbstractController
 
                 $em = $this->getDoctrine()->getManager();
                 $em->flush();
-                return $this->redirectToRoute('main');
+                $this->addFlash('success','votre panier a bien etais réserver');
+                return $this->redirectToRoute('shop_reservation_client', [
+                    'id' => $this->getUser()->getId()
+                    ]
+                );
             }else {
                 $this->addFlash('error','la date doit etre conforme au maximum 15 jours');
             }
@@ -206,7 +210,7 @@ class ShopController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            return $this->redirectToRoute('shop_product');
+            return $this->redirectToRoute('shop_stock');
 
         }
 
@@ -229,7 +233,7 @@ class ShopController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery("SELECT a FROM App\Entity\Order a WHERE a.buyer is not null ");
         $order = $query->getResult();
-        return $this->render('shop/reservation.html.twig',[
+        return $this->render('shop/reservationall.html.twig',[
             'order' => $order
         ]);
 
@@ -255,7 +259,7 @@ class ShopController extends AbstractController
 
     /**
      * @Route("/produit/delete/{id}", name="produit.delete")
-     * @Security ("is_granted('RROLE_ADMIN')")
+     * @Security ("is_granted('ROLE_ADMIN')")
      */
     public function produitDelete(Product $product, Request $request): Response
     {
@@ -272,7 +276,7 @@ class ShopController extends AbstractController
             $this->addFlash('success', 'le produit a bien etais surpprimé');
 
         }
-        return $this->redirectToRoute('shop_product');
+        return $this->redirectToRoute('shop_stock');
 
 
     }
@@ -318,6 +322,25 @@ class ShopController extends AbstractController
             ->getResult();
         return $this->render('shop/search.html.twig', [
             'product' => $querybuild
+        ]);
+    }
+
+    //stock et gestion de celui ci
+
+    /**
+     * @Route("/produit-stock", name="stock")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function stock(Request $request): Response
+    {
+
+
+        $em = $this->getDoctrine()->getManager();
+        $productsRepo = $em->getRepository(Product::class);
+        $products = $productsRepo->findBy([],['stock' => 'ASC']);
+
+        return $this->render('shop/stock.html.twig', [
+            'products' => $products
         ]);
     }
 
