@@ -22,6 +22,13 @@ class MainController extends AbstractController
         ]);
     }
     /**
+     * @Route("/nous_connaitre/", name="nous_connaitre")
+     */
+    public function nousConnaitre(): Response
+    {
+        return $this->render('main/nous_connaitre.html.twig');
+    }
+    /**
      * @Route("/mentions-legales/", name="mentions_legales")
      */
     public function mentionsLegales(): Response

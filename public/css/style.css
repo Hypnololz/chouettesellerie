@@ -13,7 +13,8 @@ body{
 /*    font-family: 'Cormorant Garamond', serif;*/
     font-family: 'Roboto', sans-serif;
 }
-/*main*/
+/* styles
+ /du main*/
 section {
     display: flex;
 }
@@ -42,7 +43,7 @@ i .fas {
 }
 
 
-
+/* media query pour la photo de déco accueil*/
 @media (min-width: 1025px){
     #teampic{
         background-image: url("../img/produit/chouetteSellerieTeam.jpg");
@@ -55,8 +56,33 @@ i .fas {
 
     }
 }
+/*style de l'iframe page d'accueil*/
 iframe{
     border: none;
     width: 85%;
     height: 90%;
+}
+
+/*style texte page historique*/
+{
+    display:flex;
+}
+h2{
+    font-size: 2rem;
+}
+#listValues >li{
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+.photo{
+    width : 40%;
+    height: auto;
+    box-shadow: 7px 7px 5px 0px lightslategrey;
+    display: flex;
+
+}
+.photo img{
+    width: 100%;
+    border-radius: 25px;
+    margin: 10px 10px;
 }
