@@ -381,6 +381,33 @@ class ShopController extends AbstractController
         return $this->redirectToRoute('shop_reservation');
     }
 
+    /**
+     * @Route("/annulationpannier", name="cart.cancel.all")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function cartCancelall(): Response
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $querybuild = $em->createQueryBuilder('a')
+            ->select('a')
+            ->from('App\Entity\OrderItem','a')
+            ->innerJoin('a.orderRef','b')
+            ->where('b.buyer is NULL')
+            ->getQuery()
+            ->getResult();
+        foreach ( $querybuild as $item){
+            dump($item);
+            $order = $item->getOrderRef();
+            $em->remove($item);
+            $em->remove($order);
+        }
+        $em->flush();
+
+        return $this->redirectToRoute('shop_reservation');
+    }
+
 
 
 }

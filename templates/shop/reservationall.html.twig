@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <a class="btn btn-warning text-center" href="{{ path('shop_cart.cancel.all') }}">clicker moi  une fois par jour !</a>
     <h1 class="text-center py-4">- Réservations en cours -</h1>
     {% for reservation in order %}
 

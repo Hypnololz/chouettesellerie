@@ -9,106 +9,109 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-4 order-lg-2">
-                        <div class="container mt-3">
-                            <h2 class="text-center fw-bold">Bienvenue, on aime les chevaux !</h2>
-                            <div class="row">
-                                <div class="col-12 col-lg-9 mx-auto">
-                                    <p class="fs-5">Chez La Chouette sellerie, nous montons tous les jours à cheval.
-                                        C'est
-                                        pourquoi nous
-                                        sommes
-                                        attentifs aux besoins des cavaliers et de leurs montures. N'hésitez pas à faire
-                                        appel à
-                                        notre
-                                        expertise ! Une hésitation ? Un coup de fil ou un passage en boutique ! </p>
+                    <div class="container mt-3">
+                        <h2 class="text-center fw-bold">Bienvenue chez la Chouette Sellerie !</h2>
+                        <div class="row">
+                            <div class="col-12 col-lg-9 mx-auto">
+                                <p class="fs-5">Nous montons tous les jours à cheval,
+                                    c'est
+                                    pourquoi nous
+                                    sommes
+                                    attentifs aux besoins des cavaliers et de leurs montures. N'hésitez pas à faire
+                                    appel à
+                                    notre
+                                    expertise, un coup de fil ou un passage en boutique ! </p>
 
-                                    {# Rappel réseaux sociaux #}
-                                    <p class=" text-center fs-5">Suivez-nous sur vos réseaux préférés : </p>
-                                    <div class="text-center">
-                                        <!-- Facebook -->
-                                        <a class="btn btn-link btn-floating btn-lg bg-bleumarine text-gold me-5 px-4 fs-3"
-                                           href="https://www.facebook.com/La-Chouette-Sellerie-116366336862331/"
-                                           role="button"
-                                           data-mdb-ripple-color="dark"><i class="fab fa-facebook-f 7x"></i></a>
+                                {# Rappel réseaux sociaux #}
+                                <p class=" text-center fs-5">Suivez-nous sur vos réseaux préférés : </p>
+                                <div class="text-center">
+                                    <!-- Facebook -->
+                                    <a class="btn btn-link btn-floating btn-lg bg-bleumarine text-gold me-5 px-4 fs-3"
+                                       href="https://www.facebook.com/La-Chouette-Sellerie-116366336862331/"
+                                       role="button"
+                                       data-mdb-ripple-color="dark"><i class="fab fa-facebook-f 7x"></i></a>
 
-                                        <!-- Instagram -->
-                                        <a class="btn btn-link btn-floating btn-lg bg-bleumarine text-gold fs-3"
-                                           href="https://www.instagram.com/chouettesellerie/?hl=fr"
-                                           role="button"
-                                           data-mdb-ripple-color="dark"><i class="fab fa-instagram"></i></a>
-                                    </div>
+                                    <!-- Instagram -->
+                                    <a class="btn btn-link btn-floating btn-lg bg-bleumarine text-gold fs-3"
+                                       href="https://www.instagram.com/chouettesellerie/?hl=fr"
+                                       role="button"
+                                       data-mdb-ripple-color="dark"><i class="fab fa-instagram"></i></a>
                                 </div>
                             </div>
-                            {# Photo de présentation #}
-                            <div class="row" id="teampic"></div>
                         </div>
+                        {# Photo de présentation #}
+                        <div class="row" id="teampic"></div>
+                    </div>
                 </div>
 
                 {# section boutique avec plan de ville #}
-                    <div class="col-lg-4 order-lg-1 p-lg-0 my-lg-auto">
+                <div class="col-lg-4 order-lg-1 p-lg-0 my-lg-auto">
 
-                        <div class="container">
-                            <h2 class="text-center boutique fw-bold">BOUTIQUE</h2>
-                            <div class="row">
-                                <div class="col-12  pt-2 col-lg-6 offset-lg-3">
-                                    <a href="{{ path('shop_gammes')~'?searcharea=soins' }}">
-                                        <button class="btn bg-bleumarine text-gold fw-bold w-100" type="button"><i
-                                                    class=" me-2 fas fa-hand-holding-medical"></i>
-                                            Gamme Soins
-                                        </button>
-                                    </a>
-                                </div>
-                                <div class="col-12  pt-2 col-lg-6 offset-lg-3">
-                                    <a href="{{ path('shop_gammes')~'?searcharea=cavalier' }}">
-                                        <button class="btn bg-bleumarine text-gold fw-bold w-100" type="button"><i
-                                                    class=" me-2 fas fa-hat-cowboy-side"></i> Gamme Cavalier
-                                        </button>
-                                    </a>
-                                </div>
-                                <div class="col-12 pt-2 col-lg-6 offset-lg-3">
-                                    <a href="{{ path('shop_gammes')~'?searcharea=cheval' }}">
-                                        <button class="btn bg-bleumarine text-gold fw-bold w-100" type="button"><i
-                                                    class=" me-2 fas fa-horse"></i> Gamme Cheval
-                                        </button>
-                                    </a>
-                                </div>
-                                <div class="col-12 pt-2 col-lg-6 offset-lg-3">
-                                    <a href="{{ path('shop_gammes')~'?searcharea=chien' }}">
-                                        <button class="btn bg-bleumarine text-gold fw-bold w-100" type="button"><i
-                                                    class=" me-2 fas fa-paw"></i> Gamme Chien
-                                        </button>
-                                    </a>
-                                </div>
+                    <div class="container">
+                        <h2 class="text-center boutique fw-bold">BOUTIQUE</h2>
+                        <div class="row">
+                            <div class="col-12  pt-2 col-lg-6 offset-lg-3">
+                                <a href="{{ path('shop_gammes')~'?searcharea=soins' }}">
+                                    <button class="btn bg-bleumarine text-gold fw-bold w-100" type="button"><i
+                                                class=" me-2 fas fa-hand-holding-medical"></i>
+                                        Gamme Soins
+                                    </button>
+                                </a>
                             </div>
-                            {# Plan de ville #}
-                            <div>
-                                <p class=" pt-5">Pour chercher votre réservation:</p>
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4548.263838315505!2d5.048094628928246!3d47.3257882427884!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x54b41bb5be9f53a1!2sLa%20Chouette%20Sellerie!5e0!3m2!1sfr!2sfr!4v1634740303878!5m2!1sfr!2sfr" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                            <div class="col-12  pt-2 col-lg-6 offset-lg-3">
+                                <a href="{{ path('shop_gammes')~'?searcharea=cavalier' }}">
+                                    <button class="btn bg-bleumarine text-gold fw-bold w-100" type="button"><i
+                                                class=" me-2 fas fa-hat-cowboy-side"></i> Gamme Cavalier
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="col-12 pt-2 col-lg-6 offset-lg-3">
+                                <a href="{{ path('shop_gammes')~'?searcharea=cheval' }}">
+                                    <button class="btn bg-bleumarine text-gold fw-bold w-100" type="button"><i
+                                                class=" me-2 fas fa-horse"></i> Gamme Cheval
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="col-12 pt-2 col-lg-6 offset-lg-3">
+                                <a href="{{ path('shop_gammes')~'?searcharea=chien' }}">
+                                    <button class="btn bg-bleumarine text-gold fw-bold w-100" type="button"><i
+                                                class=" me-2 fas fa-paw"></i> Gamme Chien
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                        {# Plan de ville #}
+                        <div>
+                            <p class="text-center pt-5">Pour chercher votre réservation:</p>
+                            <div class="text-center">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d16684.54670494631!2d5.046949420526735!3d47.32122097133631!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x54b41bb5be9f53a1!2sLa%20Chouette%20Sellerie!5e0!3m2!1sfr!2sfr!4v1634739095584!5m2!1sfr!2sfr"
+                                        width="400" height="300" style="border:0;" loading="lazy"></iframe>
                             </div>
                         </div>
                     </div>
+                </div>
                 {# Section "Une" avec affichage de la  dernière news façon card #}
-                    <div class="col-lg-4 order-lg-3 m-lg-0 p-lg-0 my-lg-auto">
-                        <div class="container">
-                            <h2 class="boutique text-center fw-bold">A LA UNE</h2>
-                            <div class="row">
+                <div class="col-lg-4 order-lg-3 m-lg-0 p-lg-0 my-lg-auto">
+                    <div class="container">
+                        <h2 class="boutique text-center fw-bold">A LA UNE</h2>
+                        <div class="row">
 
-                                {% for new in news %}
-                                    <div class=" card mx-auto bg-bleumarine text-gold" style="width: 18rem;">
-                                        <img src="{{ asset('img/news/'~new.photo) }}"
-                                             class=" rounded card-img-top mt-2  "
-                                             alt="...">
-                                        <div class="card-body rounded">
-                                            <h5 class="card-title text-gold">{{ new.title }}</h5>
-                                            <div class="card-text">{{ new.content|raw|purify|slice(0,50)~'...' }}</div>
-                                            <a href="{{ path('view_news', {'slug': new.slug}) }}"
-                                               class="btn btn-warning fw-bold">voir la news</a>
-                                        </div>
+                            {% for new in news %}
+                                <div class=" card mx-auto bg-bleumarine text-gold" style="width: 18rem;">
+                                    <img src="{{ asset('img/news/'~new.photo) }}"
+                                         class=" rounded card-img-top mt-2  "
+                                         alt="...">
+                                    <div class="card-body rounded">
+                                        <h5 class="card-title text-gold">{{ new.title }}</h5>
+                                        <div class="card-text pb-4">{{ new.content|raw|purify|slice(0,50)~'...' }}</div>
+                                        <a href="{{ path('view_news', {'slug': new.slug}) }}"
+                                           class="btn btn-warning fw-bold productDetail">voir la news</a>
                                     </div>
-                                {% endfor %}
-                            </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
+                </div>
             </div>
         </div>
 

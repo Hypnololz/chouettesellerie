@@ -4,7 +4,17 @@
 {% block body %}
     <div class="container">
 
-        <h1>Produits</h1>
+        <h1 class="text-center">Produits</h1>
+        <div class="row my-4">
+            <div class= "col-4 offset-4 text-center">
+                <a href="{{ path('shop_product') }}">
+                    <button class="btn bg-bleumarine text-gold fw-bold w-50" type="button"><i
+                                class="fas fa-arrow-rotate-back"></i>
+                        Retour a tous les produits
+                    </button>
+                </a>
+            </div>
+        </div>
         <div class="row">
             {% for product in product %}
                 <div class="card p-2 m-1" style="width: 20rem;">

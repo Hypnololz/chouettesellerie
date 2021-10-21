@@ -7,9 +7,11 @@
     <div class="container">
         <div class="row">
             <h1 class="text-center">{{ news.title }}</h1>
+            <div class="text-center">
+                <img class="img-fluid imgnews" src="{{ asset('img/news/'~news.photo) }}" alt="photo de la news">
+            </div>
             <div class="col-12 text-center">
                 {{ news.content|raw|purify }}
-
             </div>
         </div>
     </div>
