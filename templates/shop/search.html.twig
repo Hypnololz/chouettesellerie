@@ -24,7 +24,7 @@
                         <p class="card-text"> description : {{ product.description }}</p>
                         <p class="card-text"> prix : {{ product.price }} €</p>
                         <a href="{{ path('shop_product.detail', {'slug': product.slug}) }}"
-                           class="btn bg-bleumarine text-gold">détails</a>
+                           class="btn bg-bleumarine text-gold productDetail">détails</a>
                     </div>
                 </div>
             {% endfor %}
