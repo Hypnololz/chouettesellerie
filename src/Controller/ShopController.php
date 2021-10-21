@@ -125,6 +125,7 @@ class ShopController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $item = $form->getData();
             $item->setProduct($product);
+            //verification de la disponibilité du produit dans le stock
             if ($product->getStock() >= $item->getQuantity()){
 
             $cart = $cartManager->getCurrentCart();

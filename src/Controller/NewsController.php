@@ -15,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class NewsController extends AbstractController
 {
-    /**Création d'une page de vue des news**/
+//Création d'une page de vue des news
 
     /**
      * @Route("/news", name="news")
@@ -28,7 +28,7 @@ class NewsController extends AbstractController
             throw new NotFoundHttpException();
         }
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery('SELECT a FROM App\Entity\News a');
+        $query = $em->createQuery('SELECT a FROM App\Entity\News a ORDER BY a.datePublication DESC ');
 
         $pageNews = $paginator->paginate(
             $query,
@@ -41,7 +41,7 @@ class NewsController extends AbstractController
         ]);
     }
 
-    /**Interface de création de news avec formulaire**/
+    //Interface de création de news avec formulaire
 
     /**
      * @Route("/newsroom", name="create_News")
