@@ -50,25 +50,25 @@
                     </a>
                     <ul class="dropdown-menu bg-bleumarine" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item text-gold bg-bleumarine fs-3 "
-                               href="{{ path('shop_product.add') }}">ajouter
+                               href="{{ path('shop_product.add') }}">Ajouter
                                 un produit</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li><a class="dropdown-item text-gold bg-bleumarine fs-3 "
-                               href="{{ path('shop_reservation') }}">reservation</a>
+                               href="{{ path('shop_reservation') }}">Reservation</a>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li>
                             <a class="dropdown-item text-gold bg-bleumarine fs-3 "
-                               href="{{ path('shop_stock') }}">stock</a>
+                               href="{{ path('shop_stock') }}">Stock</a>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item text-gold bg-bleumarine fs-3 " href="{{ path('create_News') }}">ajouter
+                        <li><a class="dropdown-item text-gold bg-bleumarine fs-3 " href="{{ path('create_News') }}">Ajouter
                                 une news</a></li>
                         <li>
                             <hr class="dropdown-divider">
@@ -83,21 +83,21 @@
 
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0  bg-bleumarine">
                 <li class="nav-item"><a class="nav-link text-gold bg-bleumarine fs-3 "
-                                        href="{{ path('shop_panier') }}">panier</a></li>
+                                        href="{{ path('shop_panier') }}">Panier</a></li>
                 {% if is_granted('ROLE_USER') %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-gold bg-bleumarine fs-3 " href="#" id="navbarDropdown"
                            role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ app.user.name }}
+                            {{ app.user.name|upper }}
                         </a>
                         <ul class="dropdown-menu bg-bleumarine" aria-labelledby="navbarDropdown">
                             <li class="dropdown-item bg-bleumarine"><a
                                         class="nav-link text-gold fs-3 "
-                                        href="{{ path('shop_reservation_client', {'id': app.user.id}) }}">mes
+                                        href="{{ path('shop_reservation_client', {'id': app.user.id}) }}">Mes
                                     reservations</a></li>
                             <li class="dropdown-item bg-bleumarin"><a class="nav-link text-gold  fs-3 "
-                                                                      href="{{ path('app_logout') }}">deconnexion</a>
+                                                                      href="{{ path('app_logout') }}">Deconnexion</a>
                             </li>
                         </ul>
                     </li>
