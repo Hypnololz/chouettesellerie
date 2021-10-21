@@ -60,9 +60,8 @@ i .fas {
 h2{
     font-size: 2rem;
 }
-.listValues >li{
-    font-weight: bold;
-    font-size: 1.5rem;
+.listValues {
+    list-style: circle;
 }
 .imgNousconaitre{
     width: 250px;
