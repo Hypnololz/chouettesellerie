@@ -68,7 +68,6 @@ class RegistrationController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
 
-                // /TODO: Afficher le message dans la page d'accueil (base.html.twig)
                 // Message flash de succès
                 $this->addFlash('success', 'Votre compte a été créé avec succès !');
 

@@ -2,13 +2,10 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\News;
 use App\Entity\Product;
-use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ProductFixtures extends Fixture
 {

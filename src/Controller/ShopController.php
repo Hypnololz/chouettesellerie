@@ -357,6 +357,9 @@ class ShopController extends AbstractController
             'products' => $products
         ]);
     }
+
+    //annulation du panier
+
     /**
      * @Route("/produit-annulation{id}", name="cart.cancel")
      * @Security("is_granted('ROLE_ADMIN')")
@@ -367,17 +370,25 @@ class ShopController extends AbstractController
 
         $id = $order->getId();
         $em = $this->getDoctrine()->getManager();
-        $orderitemrepo = $em->getRepository(OrderItem::class);
-        $orderitem =  $orderitemrepo->findByOrderRef($id);
-        foreach ( $orderitem as $item){
+
+        //recherche des produits dans le panier
+
+        $orderItemRepo = $em->getRepository(OrderItem::class);
+        $orderItem =  $orderItemRepo->findByOrderRef($id);
+
+        //foreach qui supprime les produits du panier
+        foreach ( $orderItem as $item){
             $product = $item->getProduct();
             $product->setStock($product->getStock() + $item->getQuantity());
         }
+        //supression de l'order
         $em->remove($order);
         $em->flush();
 
         return $this->redirectToRoute('shop_reservation');
     }
+
+    //supression des panier non reserver
 
     /**
      * @Route("/annulationpannier", name="cart.cancel.all")
@@ -387,14 +398,21 @@ class ShopController extends AbstractController
     {
 
         $em = $this->getDoctrine()->getManager();
+        //requete visant a remonter les produit d'un panier sans reservation et datant de plus de 2  jour
+        $date = new \DateTime();
+        $date->sub(new \DateInterval('P2D'));
 
+        //requete resortant les produits et les paniers vieux de deux jours sans
         $querybuild = $em->createQueryBuilder('a')
             ->select('a')
             ->from('App\Entity\OrderItem','a')
             ->innerJoin('a.orderRef','b')
             ->where('b.buyer is NULL')
+            ->andWhere('b.updatedAt = :date')
+            ->setParameter(':date',$date)
             ->getQuery()
             ->getResult();
+        //foreach pour suprimer les produit et les reservation lié a ceux-ci
         foreach ( $querybuild as $item){
             $order = $item->getOrderRef();
             $em->remove($item);
