@@ -11,10 +11,12 @@ use App\Form\CartReserveType;
 use App\Form\CartType;
 use App\Form\ProductModifType;
 use App\Manager\CartManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Storage\CartSessionStorage;
 
@@ -26,17 +28,31 @@ class ShopController extends AbstractController
 {
 
 
-    //display produit
+
+
+
+
+    //display produit list
     /**
      * @Route("/produit", name="product")
      */
-    public function product(): Response
+    public function product(Request $request, PaginatorInterface $paginator): Response
     {
+        $requestedPage = $request->query->getInt('page', 1);
+        if($requestedPage < 1){
+            throw new NotFoundHttpException();
+        }
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery('SELECT a FROM App\Entity\Product a');
 
-        $ProductRepo = $this->getDoctrine()->getRepository(Product::class);
-        $product = $ProductRepo->findAll();
+        $pageProduct = $paginator->paginate(
+            $query,
+            $requestedPage,
+            16
+        );
+
         return $this->render('shop/product.html.twig',[
-            'product' => $product,
+            'product' => $pageProduct,
         ]);
     }
 

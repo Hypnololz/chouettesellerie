@@ -39,11 +39,6 @@
                        href={{ path('shop_product') }}>Boutique</a>
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
-                <li class="nav-item">
-                    <a class="nav-link text-gold fs-3  {{ route == 'news' ? ' active' }}"
-                       href={{ path('news') }}>news</a>
-                </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-gold fs-3 " href="#" id="navbarDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -71,6 +66,11 @@
                         </li>
                         <li><a class="dropdown-item text-gold bg-bleumarine fs-3 " href="{{ path('create_News') }}">ajouter
                                 une news</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-gold bg-bleumarine fs-3 "
+                               href="{{ path('news') }}"> Suprimer des News</a></li>
                     </ul>
                     {% endif %}
                 </li>

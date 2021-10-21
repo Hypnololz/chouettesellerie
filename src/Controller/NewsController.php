@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\News;
 use App\Form\CreateNewsFormType;
@@ -19,13 +21,23 @@ class NewsController extends AbstractController
      * @Route("/news", name="news")
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function news(): Response
+    public function news(PaginatorInterface $paginator, Request $request): Response
     {
+        $requestedPage = $request->query->getInt('page', 1);
+        if($requestedPage < 1){
+            throw new NotFoundHttpException();
+        }
         $em = $this->getDoctrine()->getManager();
-        $newrepo = $em->getRepository(News::class);
-        $news = $newrepo->findAll();
+        $query = $em->createQuery('SELECT a FROM App\Entity\News a');
+
+        $pageNews = $paginator->paginate(
+            $query,
+            $requestedPage,
+            16
+        );
+
         return $this->render('news/index.html.twig', [
-        'news'=>$news
+        'news'=>$pageNews
         ]);
     }
 

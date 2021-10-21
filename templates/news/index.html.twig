@@ -4,23 +4,38 @@
 {% block title %}Administration des news{% endblock %}
 
 {% block body %}
-
-    <p>Bienvenue sur le journal de Chouette Sellerie. Que souhaitez vous faire ?</p>
-<div>
-    <h1>Hello Chouette Sellerie ! </h1>
-</div>
+    <div class="container">
 
 
-    {% if is_granted('ROLE_ADMIN') %}
-        {% for new in news %}
-            <h1>{{ new.title }}</h1>
-            <p class="mb-0 mt-3">
-                <a class="text-decoration-none text-danger" href="{{ path('publication_delete', {'id': new.id, csrf_token: csrf_token('publication_delete_' ~ new.id ) }) }}"><i class="fas fa-trash-alt me-1"></i>Supprimer</a>
-            </p>
-        {% endfor %}
-    {% endif %}
+        <h1 class="text-center"> Administration des news</h1>
+        <div class="row">
+            {% for new in news %}
+                <div class=" card m-1 bg-bleumarine text-gold" style="width: 18rem;">
+                    <img src="{{ asset('img/news/'~new.photo) }}"
+                         class=" rounded card-img-top mt-2  "
+                         alt="...">
+                    <div class="card-body rounded">
+                        <h5 class="card-title text-gold">{{ new.title }}</h5>
+                        <div class="card-text">{{ new.content|raw|purify|slice(0,50)~'...' }}</div>
+                        <a href="{{ path('view_news', {'slug': new.slug}) }}"
+                           class="btn btn-warning fw-bold">voir la news</a>
+<a onclick=" return confirm('Êtes vous sur de vouloir supprimer cette news ?')" class="text-decoration-none btn btn-danger" href="{{ path('publication_delete', {'id': new.id, csrf_token: csrf_token('publication_delete_' ~ new.id ) }) }}"><i class="fas fa-trash-alt me-1"></i>Supprimer</a>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="my-3 text-center">
+                <div class="d-inline-block">
+                    {{ knp_pagination_render(news) }}
+                </div>
+            </div>
+        </div>
 
+
+
+    </div>
 
 {% endblock %}
+
+
 
 
