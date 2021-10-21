@@ -14,8 +14,12 @@ panier
                             <div class="card-header bg-bleumarine text-gold d-flex">
                                 <h5 class="me-2 mt-2">Produits</h5>
                                 <div class="ml-auto">
-                                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-warning'}}) }}
-                                    {{ form_widget(form.clear, {'attr': {'class': 'btn btn-light'}}) }}
+                                    {{ form_widget(form.save, {
+                                        'attr': {'class': 'btn btn-warning'}
+                                    }) }}
+                                    {{ form_widget(form.clear, {
+                                        'attr': {'class': 'btn btn-light'}
+                                    }) }}
                                 </div>
                             </div>
                             <ul class="list-group list-group-flush">

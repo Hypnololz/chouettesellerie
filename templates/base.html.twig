@@ -107,8 +107,8 @@
                     </li>
                 {% endif %}
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search">
+            <form class="d-flex" method="get" action="{{ path('shop_search') }}">
+                <input class="form-control me-2" name="searcharea" type="search" placeholder="Recherche" aria-label="Search">
                 <button class="btn bg-bleumarine text-gold fs-3 " type="submit">Recherche</button>
             </form>
         </div>

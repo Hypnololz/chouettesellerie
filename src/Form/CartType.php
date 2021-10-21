@@ -19,8 +19,12 @@ class CartType extends AbstractType
             ->add('items', CollectionType::class, [
                 'entry_type' => CartItemType::class
             ])
-            ->add('save', SubmitType::class)
-            ->add('clear', SubmitType::class)
+            ->add('save', SubmitType::class,[
+                'label' => 'mettre a jour le panier'
+            ])
+            ->add('clear', SubmitType::class,[
+                'label' => 'vider le panier'
+            ])
             ->addEventSubscriber(new RemoveCartItemListener())
             ->addEventSubscriber(new ClearCartListener());;
     }

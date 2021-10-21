@@ -85,7 +85,6 @@ class ShopController extends AbstractController
         $product = new Product();
         $form = $this->createForm(AddProductType::class,$product);
         $form->handleRequest($request);
-        dump($product);
         if ($form->isSubmitted() && $form->isValid()){
             $photo = $form->get('photo')->getData();
             do{
@@ -160,7 +159,6 @@ class ShopController extends AbstractController
         $cart = $cartManager->getCurrentCart();
         $form = $this->createForm(CartType::class, $cart);
         $formreserve = $this->createForm(CartReserveType::class,$cart);
-        dump($cart);
 
         $formreserve->handleRequest($request);
         $form->handleRequest($request);
@@ -190,7 +188,7 @@ class ShopController extends AbstractController
 
                 $em = $this->getDoctrine()->getManager();
                 $em->flush();
-                $this->addFlash('success','votre panier a bien etais réserver');
+                $this->addFlash('success','Votre panier a bien été réservé');
                 return $this->redirectToRoute('shop_reservation_client', [
                     'id' => $this->getUser()->getId()
                     ]
@@ -398,7 +396,6 @@ class ShopController extends AbstractController
             ->getQuery()
             ->getResult();
         foreach ( $querybuild as $item){
-            dump($item);
             $order = $item->getOrderRef();
             $em->remove($item);
             $em->remove($order);
