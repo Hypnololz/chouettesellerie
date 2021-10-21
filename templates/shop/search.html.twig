@@ -17,7 +17,7 @@
         </div>
         <div class="row">
             {% for product in product %}
-                <div class="card p-2 m-1" style="width: 20rem;">
+                <div class="card col-12 mx-auto col-lg-3" style="width: 20rem;">
                     <img src="{{ asset('img/produit/'~product.photo) }}" class="card-img-top" alt="">
                     <div class="card-body">
                         <h5 class="card-title">{{ product.name }} de chez {{ product.brand }}</h5>
