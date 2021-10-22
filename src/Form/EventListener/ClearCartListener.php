@@ -31,7 +31,8 @@ class ClearCartListener implements EventSubscriberInterface
             return;
         }
 
-        // Is the clear button clicked?
+        //  si le bouton vider le panier est utiliser alors on utilise la methode
+        //remove item de l'entity order >> panier vidé
         if (!$form->get('clear')->isClicked()) {
             return;
         }

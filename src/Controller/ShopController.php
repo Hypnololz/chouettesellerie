@@ -27,12 +27,7 @@ use App\Storage\CartSessionStorage;
 class ShopController extends AbstractController
 {
 
-
-
-
-
-
-    //stock et gestion des produits
+    //page du stock
 
     /**
      * @Route("/produit-stock", name="stock")
@@ -116,6 +111,7 @@ class ShopController extends AbstractController
 
         ]);
     }
+
     //modification des produit administration
 
     /**
@@ -161,7 +157,7 @@ class ShopController extends AbstractController
 
             $em->flush();
 
-            $this->addFlash('success', 'le produit a bien etais surpprimé');
+            $this->addFlash('success', 'le produit a bien eté surpprimé');
 
         }
         return $this->redirectToRoute('shop_stock');
@@ -222,7 +218,7 @@ class ShopController extends AbstractController
 
         $formreserve->handleRequest($request);
         $form->handleRequest($request);
-        //validation coté back du form pour les modif de quandtité
+        //validation côté back du formulaire pour les modififications de quantité
         if ($form->isSubmitted() && $form->isValid()){
             $cart->setUpdatedAt(new \DateTime());
             $cartManager->save($cart);
