@@ -7,7 +7,8 @@
 
     <ul class="list-unstyled offset-3">
         <li class="my-2 fs-4"> client : {{ reservation.buyer.name }} {{ reservation.buyer.firstName }}</li>
-        <li class="my-2 fs-4"> date de retrait prévue: {{ reservation.dateReservation|date('d/m/Y') }}</li>
+        <li class="my-2 fs-4"> mail de contact : <a href="mailto:"{{ reservation.buyer.email }}>{{ reservation.buyer.email }}</a></li>
+        <li class="my-2 fs-4"> date de retrait prévue : {{ reservation.dateReservation|date('d/m/Y') }}</li>
         <li class="my-2 fs-4" > <span class="text-decoration-underline">prix total :</span>  <span class="fw-bold">{{ reservation.total }} €</span></li>
             {% for item in reservation.items %}
         <li class="my-2 fs-4" >{{ item.product.name }} qté : {{ item.quantity }}</li>
