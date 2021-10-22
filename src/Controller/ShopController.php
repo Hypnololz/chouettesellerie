@@ -32,6 +32,24 @@ class ShopController extends AbstractController
 
 
 
+    //stock et gestion des produits
+
+    /**
+     * @Route("/produit-stock", name="stock")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function stock(Request $request): Response
+    {
+
+
+        $em = $this->getDoctrine()->getManager();
+        $productsRepo = $em->getRepository(Product::class);
+        $products = $productsRepo->findBy([],['stock' => 'ASC']);
+
+        return $this->render('shop/stock.html.twig', [
+            'products' => $products
+        ]);
+    }
     //display produit list
     /**
      * @Route("/produit", name="product")
@@ -56,24 +74,10 @@ class ShopController extends AbstractController
         ]);
     }
 
-    // envoie des reservation pour le client dans la vue
-
-    /**
-     * @Route("/mes-reservation/{id}", name="reservation_client")
-     *
-     */
-    public function reservation(): Response
-    {
-
-        $orderRepo = $this->getDoctrine()->getRepository(Order::class);
-         $order = $orderRepo->findByBuyer($this->getUser());
-        return $this->render('shop/reservation.html.twig',[
-           'order' => $order
-        ]);
-    }
 
 
-    //add product + photo rename
+
+    //ajout de produit et changement du nom de la photo pour la securité ! never trust the user !
 
     /**
      * @Route("/ajouter-produit", name="product.add")
@@ -81,12 +85,13 @@ class ShopController extends AbstractController
      */
     public function productadd(Request $request): Response
     {
-
+        //creation du nouvel object product et hydration par le formulaire envoyer dans la vue
         $product = new Product();
         $form = $this->createForm(AddProductType::class,$product);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $photo = $form->get('photo')->getData();
+            //changement du nom du fichier
             do{
                 $newFileName = md5(random_bytes(100)).'.'. $photo->guessExtension();
 
@@ -95,7 +100,7 @@ class ShopController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
-
+            //mise en place de la photo dans sont dossier prévue
             $photo->move(
                 'img/produit/',
                 $newFileName
@@ -111,7 +116,58 @@ class ShopController extends AbstractController
 
         ]);
     }
+    //modification des produit administration
 
+    /**
+     * @Route("/modif-produit/{slug}", name="product_modif")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function modifProduit(Request $request, Product $product): Response
+    {
+
+        $form = $this->createForm(ProductModifType::class,$product);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('shop_stock');
+
+        }
+
+
+        return $this->render('shop/modifproduct.html.twig',[
+            'form' => $form->createView()
+
+        ]);
+    }
+
+    //supression de produit via leur id + protection contre csrf
+
+    /**
+     * @Route("/produit/delete/{id}", name="produit.delete")
+     * @Security ("is_granted('ROLE_ADMIN')")
+     */
+    public function produitDelete(Product $product, Request $request): Response
+    {
+        if (!$this->isCsrfTokenValid('product_delete_' . $product->getId(), $request->query->get('csrf_token'))) {
+            $this->addFlash('error', 'token secu invalide reessayer');
+        } else {
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->remove($product);
+
+            $em->flush();
+
+            $this->addFlash('success', 'le produit a bien etais surpprimé');
+
+        }
+        return $this->redirectToRoute('shop_stock');
+
+
+    }
 
     //produit en détail avec ajout au panier
 
@@ -136,8 +192,8 @@ class ShopController extends AbstractController
 
 
             $cartManager->save($cart);
-
-            return $this->redirectToRoute('shop_product.detail', ['slug' => $product->getSlug()]);
+            $this->addFlash('success','Produits ajouter au panier');
+            return $this->redirectToRoute('shop_product');
             }else{
                 $this->addFlash('error','Le produit n\'est plus en stock');
             }
@@ -157,28 +213,35 @@ class ShopController extends AbstractController
      */
     public function panier(CartManager $cartManager, Request $request, CartSessionStorage $cartSessionStorage): Response
     {
+        //recuperation du panier via le service cart manager
         $cart = $cartManager->getCurrentCart();
+        //formulaire du modifer panier et vider panier
         $form = $this->createForm(CartType::class, $cart);
+        //formulaire de reservation
         $formreserve = $this->createForm(CartReserveType::class,$cart);
 
         $formreserve->handleRequest($request);
         $form->handleRequest($request);
-
+        //validation coté back du form pour les modif de quandtité
         if ($form->isSubmitted() && $form->isValid()){
             $cart->setUpdatedAt(new \DateTime());
             $cartManager->save($cart);
 
             return $this->redirectToRoute('shop_panier');
         }
+
+        //validation formulaire reservation
         if ($formreserve->isSubmitted() && $formreserve->isValid()){
             $date = new \DateTime();
             //verif pour etre dans une periode de 15 jours
             if($cart->getDateReservation() > $date && $cart->getDateReservation() < $date->add(new \DateInterval('P15D')))
             {
+                //delet de l'id du cart en session
                 $cartSessionStorage->deleteCart();
-
+                // hydratation de l'acheteur et de la date
                 $cart->setBuyer($this->getUser());
                 $id = $cart->getId();
+                //modification du stock au moment de la reservation
                 $em = $this->getDoctrine()->getManager();
                 $orderitemrepo = $em->getRepository(OrderItem::class);
                 $orderitem =  $orderitemrepo->findByOrderRef($id);
@@ -208,35 +271,23 @@ class ShopController extends AbstractController
         ]);
     }
 
-
-    //modification des produit administration
-
+    // envoie des reservation pour le client dans la vue
     /**
-     * @Route("/modif-produit/{slug}", name="product_modif")
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Route("/mes-reservation/{id}", name="reservation_client")
+     *
      */
-    public function modifProduit(Request $request, Product $product): Response
+    public function reservation(): Response
     {
 
-        $form = $this->createForm(ProductModifType::class,$product);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
-
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
-
-            return $this->redirectToRoute('shop_stock');
-
-        }
-
-
-        return $this->render('shop/modifproduct.html.twig',[
-            'form' => $form->createView()
-
+        $orderRepo = $this->getDoctrine()->getRepository(Order::class);
+        $order = $orderRepo->findByBuyer($this->getUser());
+        return $this->render('shop/reservation.html.twig',[
+            'order' => $order
         ]);
     }
 
-    //envoie des reservation de tout les clients dans la vue
+
+    //envoie des reservations de tout les clients dans la vue administration du site
 
     /**
      * @Route("/reservation", name="reservation")
@@ -253,7 +304,7 @@ class ShopController extends AbstractController
         ]);
 
     }
-
+    //validation du retrait de la reservation
     /**
      * @Route("/validation{id}", name="reservation.validation")
      * @Security("is_granted('ROLE_ADMIN')")
@@ -268,33 +319,71 @@ class ShopController extends AbstractController
         return $this->redirectToRoute('shop_reservation');
 
     }
-
-
-    //supression de produit via leur id + protection contre csrf
+    //suppression reservation par admin remise en stock des produit non retiré
 
     /**
-     * @Route("/produit/delete/{id}", name="produit.delete")
-     * @Security ("is_granted('ROLE_ADMIN')")
+     * @Route("/produit-annulation{id}", name="cart.cancel")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function produitDelete(Product $product, Request $request): Response
+    public function cartCancel(Order $order): Response
     {
-        if (!$this->isCsrfTokenValid('product_delete_' . $product->getId(), $request->query->get('csrf_token'))) {
-            $this->addFlash('error', 'token secu invalide reessayer');
-        } else {
 
-            $em = $this->getDoctrine()->getManager();
 
-            $em->remove($product);
+        $id = $order->getId();
+        $em = $this->getDoctrine()->getManager();
 
-            $em->flush();
+        //recherche des produits dans le panier
 
-            $this->addFlash('success', 'le produit a bien etais surpprimé');
+        $orderItemRepo = $em->getRepository(OrderItem::class);
+        $orderItem =  $orderItemRepo->findByOrderRef($id);
 
+        //foreach qui supprime les produits du panier
+        foreach ( $orderItem as $item){
+            $product = $item->getProduct();
+            $product->setStock($product->getStock() + $item->getQuantity());
         }
-        return $this->redirectToRoute('shop_stock');
+        //supression de l'order
+        $em->remove($order);
+        $em->flush();
 
-
+        return $this->redirectToRoute('shop_reservation');
     }
+
+//supression des panier non reserver
+
+    /**
+     * @Route("/annulationpannier", name="cart.cancel.all")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function cartCancelall(): Response
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        //requete visant a remonter les produit d'un panier sans reservation et datant de plus de 2  jour
+        $date = new \DateTime();
+        $date->sub(new \DateInterval('P2D'));
+
+        //requete resortant les produits et les paniers vieux de deux jours sans acheteur
+        $querybuild = $em->createQueryBuilder('a')
+            ->select('a')
+            ->from('App\Entity\OrderItem','a')
+            ->innerJoin('a.orderRef','b')
+            ->where('b.buyer is NULL')
+            ->andWhere('b.updatedAt = :date')
+            ->setParameter(':date',$date)
+            ->getQuery()
+            ->getResult();
+        //foreach pour suprimer les produit et les reservation lié a ceux-ci
+        foreach ( $querybuild as $item){
+            $order = $item->getOrderRef();
+            $em->remove($item);
+            $em->remove($order);
+        }
+        $em->flush();
+
+        return $this->redirectToRoute('shop_reservation');
+    }
+
 
     //envoie des produit via la recherche de la navbar
 
@@ -339,91 +428,5 @@ class ShopController extends AbstractController
             'product' => $querybuild
         ]);
     }
-
-    //stock et gestion de celui ci
-
-    /**
-     * @Route("/produit-stock", name="stock")
-     * @Security("is_granted('ROLE_ADMIN')")
-     */
-    public function stock(Request $request): Response
-    {
-
-
-        $em = $this->getDoctrine()->getManager();
-        $productsRepo = $em->getRepository(Product::class);
-        $products = $productsRepo->findBy([],['stock' => 'ASC']);
-
-        return $this->render('shop/stock.html.twig', [
-            'products' => $products
-        ]);
-    }
-
-    //annulation du panier
-
-    /**
-     * @Route("/produit-annulation{id}", name="cart.cancel")
-     * @Security("is_granted('ROLE_ADMIN')")
-     */
-    public function cartCancel(Order $order): Response
-    {
-
-
-        $id = $order->getId();
-        $em = $this->getDoctrine()->getManager();
-
-        //recherche des produits dans le panier
-
-        $orderItemRepo = $em->getRepository(OrderItem::class);
-        $orderItem =  $orderItemRepo->findByOrderRef($id);
-
-        //foreach qui supprime les produits du panier
-        foreach ( $orderItem as $item){
-            $product = $item->getProduct();
-            $product->setStock($product->getStock() + $item->getQuantity());
-        }
-        //supression de l'order
-        $em->remove($order);
-        $em->flush();
-
-        return $this->redirectToRoute('shop_reservation');
-    }
-
-    //supression des panier non reserver
-
-    /**
-     * @Route("/annulationpannier", name="cart.cancel.all")
-     * @Security("is_granted('ROLE_ADMIN')")
-     */
-    public function cartCancelall(): Response
-    {
-
-        $em = $this->getDoctrine()->getManager();
-        //requete visant a remonter les produit d'un panier sans reservation et datant de plus de 2  jour
-        $date = new \DateTime();
-        $date->sub(new \DateInterval('P2D'));
-
-        //requete resortant les produits et les paniers vieux de deux jours sans
-        $querybuild = $em->createQueryBuilder('a')
-            ->select('a')
-            ->from('App\Entity\OrderItem','a')
-            ->innerJoin('a.orderRef','b')
-            ->where('b.buyer is NULL')
-            ->andWhere('b.updatedAt = :date')
-            ->setParameter(':date',$date)
-            ->getQuery()
-            ->getResult();
-        //foreach pour suprimer les produit et les reservation lié a ceux-ci
-        foreach ( $querybuild as $item){
-            $order = $item->getOrderRef();
-            $em->remove($item);
-            $em->remove($order);
-        }
-        $em->flush();
-
-        return $this->redirectToRoute('shop_reservation');
-    }
-
-
 
 }
