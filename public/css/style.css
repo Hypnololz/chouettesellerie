@@ -29,6 +29,10 @@ body{
 body {
     color: var(--main-blue-color);
 }
+.btn:hover{
+    background-color: var(--main-gold-color);
+    color: var(--main-blue-color);
+}
 
 .bg-bleumarine{
     background-color: var(--main-blue-color);

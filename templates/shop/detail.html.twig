@@ -5,8 +5,8 @@
     <div class="container-fluid">
         <h1 class="text-center my-4">Produit : {{ product.name }}</h1>
         <div class="row">
-            <div class="col-6 offset-3">
-                <div class="card" style="width: 40rem">
+            <div class="col-12">
+                <div class="card mx-auto" style="max-width: 40rem">
                     <img src="{{ asset('img/produit/'~product.photo) }}" class="card-img-top" alt="image produit">
                     <div class="card-body">
                         <div>

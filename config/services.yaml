@@ -6,7 +6,7 @@
 parameters:
     # Nom du site
     app.site_name: 'Chouette Sellerie'
-    # Récupération de la clé publique Google Recaptcha depuis le fichier .env
+    # Récupération de la clé privée Google Recaptcha depuis le fichier .env
     google_recaptcha.private_key: '%env(GOOGLE_RECAPTCHA_PRIVATE_KEY)%'
 
 services:
